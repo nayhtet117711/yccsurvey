@@ -1,6 +1,6 @@
 function Survey() {
   return (
-    <div className="">
+    <div className="grow">
       Survey
     </div>
   )

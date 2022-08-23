@@ -3,8 +3,10 @@ import Img2 from '../assets/img2.svg'
 import Img3 from '../assets/img3.svg'
 import Img4 from '../assets/img4.svg'
 import RightArrowIcon from '../assets/right-arrow.svg'
+import { useNavigator } from '../utils'
 
 function Home() {
+  const { navigateSurvey } = useNavigator();
   return (
     <div className="p-5">
       <ItemRow
@@ -33,7 +35,7 @@ function Home() {
         And lastly, don’t worry. Details of personal data will never be distributed or will not be used for any other purposes.
       </div>
       <div className='flex justify-center p-5'>
-        <button className='flex justify-center items-center gap-3 w-[16rem] text-white py-3 ring-1 ring-white rounded-xl bg-gradient-to-r from-[#964DEF] to-[#6C48FC] duration-150 shadow hover:shadow-lg active:ring-[#6C48FC] active:ring-2'>Take Survey <img src={RightArrowIcon} alt="right-arrow"></img></button>
+        <button onClick={navigateSurvey} className='flex justify-center items-center gap-3 w-[16rem] text-white py-3 ring-1 ring-white rounded-xl bg-gradient-to-r from-[#964DEF] to-[#6C48FC] duration-150 shadow hover:shadow-lg active:ring-[#6C48FC] active:ring-2'>Take Survey <img src={RightArrowIcon} alt="right-arrow"></img></button>
       </div>
     </div>
   )
