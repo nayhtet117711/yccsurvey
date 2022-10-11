@@ -7,7 +7,7 @@ export const useNavigator = () => {
     return navigate("/")
   }
   const navigateSurvey = () => {
-    return navigate("/survey")
+    return navigate({ pathname: "/survey", search: "?page=1" })
   }
   const navigateResult = () => {
     return navigate("/results")
