@@ -4,14 +4,16 @@ import HeaderImg from '../assets/header-img1.svg'
 import RightArrowIcon from '../assets/right-arrow.svg'
 import { useNavigator } from '../utils'
 import { useLocation } from 'react-router-dom';
+import useQuery from '../hooks/useQuery'
 
 function Header() {
   const { navigateHome, navigateSurvey, navigateResult } = useNavigator();
   const location = useLocation();
+  const [query] = useQuery();
 
   return (
     <div className="relative w-full">
-      {location.pathname==="/"
+      {location.pathname === "/"
         ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-3" />
         : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-3" />
       }
@@ -21,14 +23,14 @@ function Header() {
             <a href='/' className='text-white font-semibold text-2xl'>UT-YCC</a>
           </div>
           <div className='flex gap-6'>
-            <div onClick={navigateHome} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname==="/" ? 'underline' : ''}`}>Home</div>
-            <div onClick={navigateSurvey} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname==="/survey" ? 'underline' : ''}`}>Survey</div>
-            <div onClick={navigateResult} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname==="/results" ? 'underline' : ''}`}>Results</div>
+            <div onClick={navigateHome} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/" ? 'underline' : ''}`}>Home</div>
+            <div onClick={navigateSurvey} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>
+            <div onClick={navigateResult} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/results" ? 'underline' : ''}`}>Results</div>
           </div>
         </header>
-        {location.pathname==="/"
+        {location.pathname === "/"
           ? <HomeHeader />
-          : null
+          : <PageHeader page={query.get("page")} />
         }
       </section>
     </div>
@@ -42,7 +44,7 @@ const HomeHeader = () => {
     <>
       <section className='hidden md:block absolute z-[1] left-[4rem] bottom-[10rem] lg:bottom-[15rem] xl:bottom-[22rem] 2xl:bottom-[24rem] px-14 text-center text-white'>
         <div className='text-2xl lg:text-3xl xl:text-5xl tracking-wider leading-relaxed font-light'>
-          University of Technology <br/>
+          University of Technology <br />
           (Yatanarpon Cyber City)
         </div>
         <div className='mt-6 text-lg lg:text-xl xl:text-2xl tracking-wide font-extralight text-white'>“Shape and bright your future at UTYCC”</div>
@@ -54,6 +56,30 @@ const HomeHeader = () => {
         <button onClick={navigateSurvey} className='flex justify-center items-center gap-3 w-[16rem] text-white py-3 ring-1 ring-white rounded-xl bg-gradient-to-r from-[#964DEF] to-[#6C48FC] duration-150 shadow hover:shadow-lg active:ring-[#6C48FC] active:ring-2'>Take Survey <img src={RightArrowIcon} alt="right-arrow"></img></button>
       </section>
     </>
+  )
+}
+
+const HEADER_CONTENT = {
+  page1: {
+    title: "Vision",
+    desc: ["To be a Globally Remarkable Research based University and Cyber University"]
+  },
+  page3: {
+    title:"Motto",
+    desc:"Shape and Bright Your Future at UTYCC"
+  },
+  other: {
+    title:"",
+    desc:""
+  }
+}
+
+const PageHeader = ({ page }) => {
+  return (
+    <section className="absolute right-[10%] mt-10 text-white text-center w-[18rem] lg:w-[23rem] p-5">
+      <h1 className='text-3xl'>{HEADER_CONTENT[`page${page}`]?.title || ""}</h1>
+      <p className='pt-3 font-light italic'>{HEADER_CONTENT[`page${page}`]?.desc || ""}</p>
+    </section>
   )
 }
 

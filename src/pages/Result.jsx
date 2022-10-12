@@ -1,7 +1,10 @@
+import React from "react";
+
+
 function Result() {
   return (
-    <div className="">
-      Result
+    <div className="grow">
+     results
     </div>
   )
 }
