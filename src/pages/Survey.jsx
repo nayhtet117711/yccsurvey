@@ -3,35 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { degree_levels, genders, graduated_years, majors, organizations, rating, yes_or_no } from "../../constants";
 import Img5 from "../assets/img5.svg"
 import Img6 from "../assets/img6.svg"
-import useQuery from "../hooks/useQuery";
+import useOrganization from "../hooks/useOrganization";
+import useQueryParam from "../hooks/useQueryParam";
 
 const LabelClassName = `text-sm text-gray-900`;
 const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none`;
 const RadioClassName = `cursor-pointer h-5 w-5 ml-8 appearance-none border-2 border-gray-300 checked:bg-violet-600 rounded-full`
-const TextAreaClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none`;
+const TextAreaClassName = `block w-full max-w-xs py-2 px-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none bg-transparent`;
 
 const Survey = () => {
-  const [surveyData, setSurveyData] = useState({ name: "" });
-
-  const navigate = useNavigate();
-
-  const [query] = useQuery();
-  const page = query.get("page")
-
-  const handleChange = (e, fieldName) => {
-    console.log({ v: e.currentTarget.value, fieldName })
-    setSurveyData({ ...surveyData, [fieldName]: e.currentTarget.value })
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    window.scroll(0, 0);
-
-    if (page !== "3") {
-      return navigate({ pathname: "/survey", search: `?page=${+page + 1}` })
-    }
-  }
-
+  const [surveyData, setSurveyData] = useState({});
   const {
     name = "",
     gender = "",
@@ -56,7 +37,26 @@ const Survey = () => {
     thoughts = "",
     suggestions = "",
     advices = "",
+    gov_info = {},
   } = surveyData;
+
+  const career_organization = useOrganization(working_organization);
+
+  const navigate = useNavigate();
+
+  const [query] = useQueryParam();
+  const page = query.get("page")
+
+  const handleChange = (e, fieldName) => setSurveyData({ ...surveyData, [fieldName]: e.currentTarget.value });
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    window.scroll(0, 0);
+
+    if (page !== "3") {
+      return navigate({ pathname: "/survey", search: `?page=${+page + 1}` })
+    }
+  }
 
   return (
     <div className="grow relative flex justify-center mx-8">
@@ -336,6 +336,30 @@ const Survey = () => {
                               {v.name}
                             </label>
                           </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                }
+                {working_organization &&
+                  <div className="p-4">
+                    <label htmlFor="working_organization" className={LabelClassName}>Please fill the following: *</label>
+                    <fieldset className="mt-2">
+                      <legend className="sr-only">Working Organization</legend>
+                      <div className="flex flex-col justify-center space-y-1">
+                        {career_organization.map((v, k) => (
+                          <input
+                            key={k}
+                            id={k}
+                            name="working_organization_info"
+                            type="text"
+                            required
+                            value={""}
+                            disabled
+                            // onChange={e => handleChange(e, "working_organization")}
+                            className={TextAreaClassName}
+                            placeholder={v.name}
+                          />
                         ))}
                       </div>
                     </fieldset>

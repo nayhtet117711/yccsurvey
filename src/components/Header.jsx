@@ -4,18 +4,18 @@ import HeaderImg from '../assets/header-img1.svg'
 import RightArrowIcon from '../assets/right-arrow.svg'
 import { useNavigator } from '../utils'
 import { useLocation } from 'react-router-dom';
-import useQuery from '../hooks/useQuery'
+import useQueryParam from '../hooks/useQueryParam'
 
 function Header() {
   const { navigateHome, navigateSurvey, navigateResult } = useNavigator();
   const location = useLocation();
-  const [query] = useQuery();
+  const [query] = useQueryParam();
 
   return (
     <div className="relative w-full">
       {location.pathname === "/"
-        ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-3" />
-        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-3" />
+        ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-1" />
+        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-1" />
       }
       <section className='absolute top-0 left-0 right-0 bottom-0 flex-col'>
         <header className='sticky z-[1] top-0 left-0 right-0 pl-2 pr-2 md:pl-[6rem] md:pr-[6rem] flex bg-[#00000011] backdrop-blur-lg py-6 px-14'>

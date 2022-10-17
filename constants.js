@@ -31,7 +31,7 @@ export const yes_or_no = [
 ]
 
 export const organizations = [
-    { id: "Government Staff ", name: "Government Staff " },
+    { id: "Government Staff", name: "Government Staff" },
     { id: "Company", name: "Company" },
     { id: "Own Business", name: "Own Business" },
     { id: "Other", name: "Other" }
@@ -44,3 +44,23 @@ export const rating = [
     { id: "4", name: "4" },
     { id: "5", name: "5" },
 ]
+
+export const governmentInfo = [
+    { id: "ministry_name", name: "Ministry Name" },
+    { id: "department_name", name: "Department Name" },
+    { id: "location", name: "Location" },
+    { id: "position", name: "Position" },
+    { id: "total_exp", name: "Total months / year of experience" },
+    { id: "salary", name: "Salary" },
+    { id: "gov_rating", name: "How likely is it that you would change your career?" }
+]
+
+export const companyInfo = [
+    { id: "company_name", name: "Company Name" },
+    { id: "company_address", name: "Company Address" },
+    { id: "total_employee", name: "Number of employee in your company(estimate) " },
+    { id: "total_exp", name: "Total Months of Experience" },
+    { id: "salary", name: "Monthly salary" },
+    { id: "position", name: "Position" },
+    { id: "com_rating", name: "How likely is it that you would recommend this company to a friend or colleague?" }
+]   
