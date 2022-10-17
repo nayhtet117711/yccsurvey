@@ -63,4 +63,21 @@ export const companyInfo = [
     { id: "salary", name: "Monthly salary" },
     { id: "position", name: "Position" },
     { id: "com_rating", name: "How likely is it that you would recommend this company to a friend or colleague?" }
-]   
+]
+
+export const ownBusinessInfo = [
+    { id: "business_name", name: "Business Name" },
+    { id: "business_type", name: "Business Type" },
+    { id: "business_rating", name: "How likely is it that you would go for a company job(or) change your career?" }
+]
+
+export const otherOrgInfo = [
+    { id: "other_org_info", name: "Please specify further(optional)" },
+    { id: "business_rating", name: "How likely is it that you would change your career?" }
+]
+
+
+
+
+
+

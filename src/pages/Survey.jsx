@@ -347,20 +347,68 @@ const Survey = () => {
                     <fieldset className="mt-2">
                       <legend className="sr-only">Working Organization</legend>
                       <div className="flex flex-col justify-center space-y-1">
-                        {career_organization.map((v, k) => (
-                          <input
-                            key={k}
-                            id={k}
-                            name="working_organization_info"
-                            type="text"
-                            required
-                            value={""}
-                            disabled
-                            // onChange={e => handleChange(e, "working_organization")}
-                            className={TextAreaClassName}
-                            placeholder={v.name}
-                          />
-                        ))}
+                        {career_organization.map((v, k, a) => k !== a.length - 1
+                          ? working_organization !== "Other"
+                            ? (
+                              <input
+                                key={k}
+                                id={k}
+                                name="working_organization_info"
+                                type="text"
+                                required
+                                value={""}
+                                disabled
+                                // onChange={e => handleChange(e, "working_organization")}
+                                className={TextAreaClassName}
+                                placeholder={v.name}
+                              />
+                            ) : (
+                              <>
+                                <label htmlFor="thoughts" className={LabelClassName + " text-gray-400"}>
+                                  {v.name}
+                                </label>
+                                <textarea
+                                  name="advices"
+                                  id="advices"
+                                  rows={3}
+                                  value={""}
+                                  onChange={e => handleChange(e, "advices")}
+                                  className={"border-0 bg-gray-200 p-2 text-sm"}
+                                  placeholder="your answer here"
+                                ></textarea>
+                              </>
+                            ) : (
+                            <div className="px-4">
+                              <label htmlFor="degree_coverage_career_rating" className={LabelClassName}>
+                                {v.name}
+                              </label>
+                              <fieldset className="mt-4">
+                                <legend className="sr-only">Degree Coverage Career Rating</legend>
+                                <div className="space-y-0 flex items-center space-x-0">
+                                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                                  {rating.map((v) => (
+                                    <div key={v.id} className="flex items-center">
+                                      <input
+                                        id={v.id}
+                                        name="degree_coverage_career_rating"
+                                        type="radio"
+                                        value={""}
+                                        disabled
+                                        // checked={v.id === degree_coverage_career_rating}
+                                        // onChange={e => handleChange(e, "degree_coverage_career_rating")}
+                                        className={RadioClassName}
+                                      />
+                                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                                        {v.name}
+                                      </label>
+                                    </div>
+                                  ))}
+                                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                                </div>
+                              </fieldset>
+                            </div>
+                          ))
+                        }
                       </div>
                     </fieldset>
                   </div>

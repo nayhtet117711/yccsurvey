@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { companyInfo, governmentInfo } from "../../constants";
+import { companyInfo, governmentInfo, otherOrgInfo, ownBusinessInfo } from "../../constants";
 
 const useOrganization = (working_organization) => {
     const [organization, setOrganization] = useState([]);
@@ -9,6 +9,8 @@ const useOrganization = (working_organization) => {
             switch (working_organization) {
                 case 'Government Staff': return governmentInfo;
                 case 'Company': return companyInfo;
+                case 'Own Business': return ownBusinessInfo;
+                case 'Other': return otherOrgInfo;
                 default: return [];
             }
         })

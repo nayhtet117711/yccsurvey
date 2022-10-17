@@ -14,11 +14,11 @@ function Header() {
   return (
     <div className="relative w-full">
       {location.pathname === "/"
-        ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-1" />
-        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-1" />
+        ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-0.5" />
+        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-0.5" />
       }
       <section className='absolute top-0 left-0 right-0 bottom-0 flex-col'>
-        <header className='sticky z-[1] top-0 left-0 right-0 pl-2 pr-2 md:pl-[6rem] md:pr-[6rem] flex bg-[#00000011] backdrop-blur-lg py-6 px-14'>
+        <header className='sticky z-[1] top-0 left-0 right-0 pl-2 pr-2 md:pl-[6rem] md:pr-[6rem] flex bg-[#00000011] backdrop-blur py-6 px-14'>
           <div className='flex grow'>
             <a href='/' className='text-white font-semibold text-2xl'>UT-YCC</a>
           </div>
