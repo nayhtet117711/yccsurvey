@@ -29,3 +29,18 @@ export const yes_or_no = [
     { id: "yes", name: "Yes" },
     { id: "no", name: "No" }
 ]
+
+export const organizations = [
+    { id: "Government Staff ", name: "Government Staff " },
+    { id: "Company", name: "Company" },
+    { id: "Own Business", name: "Own Business" },
+    { id: "Other", name: "Other" }
+]
+
+export const rating = [
+    { id: "1", name: "1" },
+    { id: "2", name: "2" },
+    { id: "3", name: "3" },
+    { id: "4", name: "4" },
+    { id: "5", name: "5" },
+]
