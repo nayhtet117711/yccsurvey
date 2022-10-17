@@ -25,6 +25,7 @@ const Survey = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    window.scroll(0, 0);
 
     if (page !== "3") {
       return navigate({ pathname: "/survey", search: `?page=${+page + 1}` })

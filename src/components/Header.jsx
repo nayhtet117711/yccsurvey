@@ -64,21 +64,33 @@ const HEADER_CONTENT = {
     title: "Vision",
     desc: ["To be a Globally Remarkable Research based University and Cyber University"]
   },
+  page2: {
+    title: "Mission",
+    desc: [
+      "To provide skillful engineers and outstanding researchers",
+      "To create broad access of engineering education opportunities with smart learning",
+      "To be a national / regional / global level high ranking university"
+    ]
+  },
   page3: {
-    title:"Motto",
-    desc:"Shape and Bright Your Future at UTYCC"
+    title: "Motto",
+    desc: ["Shape and Bright Your Future at UTYCC"]
   },
   other: {
-    title:"",
-    desc:""
+    title: "",
+    desc: []
   }
 }
 
 const PageHeader = ({ page }) => {
   return (
-    <section className="absolute right-[10%] mt-10 text-white text-center w-[18rem] lg:w-[23rem] p-5">
+    <section className="absolute right-[8%] mt-5 text-white text-center w-[18rem] lg:w-[30rem] p-2">
       <h1 className='text-3xl'>{HEADER_CONTENT[`page${page}`]?.title || ""}</h1>
-      <p className='pt-3 font-light italic'>{HEADER_CONTENT[`page${page}`]?.desc || ""}</p>
+      {
+        HEADER_CONTENT[`page${page}`]?.desc.map((v, k) => (
+          <p key={k} className='text-base pt-3 font-light italic'>{v || ""}</p>
+        ))
+      }
     </section>
   )
 }
