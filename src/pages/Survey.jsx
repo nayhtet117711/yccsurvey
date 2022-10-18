@@ -53,7 +53,7 @@ const Survey = () => {
   const handleChange = (fieldName, value) => setSurveyData((prev) => {
     const newState = { ...prev };
     newState[fieldName] = value;
-    console.log({ fieldName, value })
+
     switch (fieldName) {
       case "has_other_degree":
         {
