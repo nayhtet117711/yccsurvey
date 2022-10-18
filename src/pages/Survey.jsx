@@ -362,8 +362,9 @@ const Survey = () => {
                                 className={TextAreaClassName}
                                 placeholder={v.name}
                               />
-                            ) : (
-                              <>
+                            )
+                            : (
+                              <div key={k}>
                                 <label htmlFor="thoughts" className={LabelClassName + " text-gray-400"}>
                                   {v.name}
                                 </label>
@@ -376,9 +377,10 @@ const Survey = () => {
                                   className={"border-0 bg-gray-200 p-2 text-sm"}
                                   placeholder="your answer here"
                                 ></textarea>
-                              </>
-                            ) : (
-                            <div className="px-4">
+                              </div>
+                            )
+                          : (
+                            <div key={k} className="px-4">
                               <label htmlFor="degree_coverage_career_rating" className={LabelClassName}>
                                 {v.name}
                               </label>
