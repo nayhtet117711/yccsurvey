@@ -5,6 +5,7 @@ import Img5 from "../assets/img5.svg"
 import Img6 from "../assets/img6.svg"
 import useOrganization from "../hooks/useOrganization";
 import useQueryParam from "../hooks/useQueryParam";
+import { useCookies } from 'react-cookie';
 
 const LabelClassName = `text-sm text-gray-900`;
 const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none`;
@@ -12,7 +13,9 @@ const RadioClassName = `cursor-pointer h-5 w-5 ml-8 appearance-none border-2 bor
 const TextAreaClassName = `block w-full max-w-xs py-2 px-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none bg-transparent`;
 
 const Survey = () => {
-  const [surveyData, setSurveyData] = useState({});
+  const [cookies, setCookie] = useCookies(['survey-data']);
+
+  const [surveyData, setSurveyData] = useState(cookies["survey-data"] || {});
   const {
     name = "",
     gender = "",
@@ -27,6 +30,7 @@ const Survey = () => {
     current_degree_program = "",
     is_current_working = "",
     working_organization = "",
+    working_organization_info = {},
     current_job_rating = "",
     job_related_degree_rating = "",
     degree_coverage_career_rating = "",
@@ -37,7 +41,6 @@ const Survey = () => {
     thoughts = "",
     suggestions = "",
     advices = "",
-    gov_info = {},
   } = surveyData;
 
   const career_organization = useOrganization(working_organization);
@@ -47,10 +50,38 @@ const Survey = () => {
   const [query] = useQueryParam();
   const page = query.get("page")
 
-  const handleChange = (e, fieldName) => setSurveyData({ ...surveyData, [fieldName]: e.currentTarget.value });
+  const handleChange = (fieldName, value) => setSurveyData((prev) => {
+    const newState = { ...prev };
+    newState[fieldName] = value;
+    console.log({ fieldName, value })
+    switch (fieldName) {
+      case "has_other_degree":
+        {
+          newState["other_degree"] = "";
+        }; break;
+      case "is_current_college":
+        {
+          newState["college_name"] = "";
+          newState["current_degree_program"] = "";
+        }; break;
+      case "is_current_working":
+        {
+          newState["working_organization"] = "";
+        }; break;
+      case "working_organization":
+        {
+          newState["working_organization_info"] = {};
+        }; break;
+      default: newState;
+    }
+
+    return newState;
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
+    setCookie(`survey-data`, JSON.stringify(surveyData), { path: '/', maxAge: 60 * 30 });
+
     window.scroll(0, 0);
 
     if (page !== "3") {
@@ -71,7 +102,7 @@ const Survey = () => {
                 id="name"
                 required
                 value={name}
-                onChange={e => handleChange(e, "name")}
+                onChange={e => handleChange("name", e.currentTarget.value)}
                 className={InputClassName}
                 placeholder="Please fill your name"
               />
@@ -91,7 +122,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === gender}
-                        onChange={e => handleChange(e, "gender")}
+                        onChange={e => handleChange("gender", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -111,7 +142,7 @@ const Survey = () => {
                 id="email"
                 required
                 value={email}
-                onChange={e => handleChange(e, "email")}
+                onChange={e => handleChange("email", e.currentTarget.value)}
                 className={InputClassName}
                 placeholder="somebody@gmail.com"
               />
@@ -131,7 +162,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === graduated_year}
-                        onChange={e => handleChange(e, "graduated_year")}
+                        onChange={e => handleChange("graduated_year", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -157,7 +188,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === degree_level}
-                        onChange={e => handleChange(e, "degree_level")}
+                        onChange={e => handleChange("degree_level", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -183,7 +214,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === major}
-                        onChange={e => handleChange(e, "major")}
+                        onChange={e => handleChange("major", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -211,7 +242,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === has_other_degree}
-                        onChange={e => handleChange(e, "has_other_degree")}
+                        onChange={e => handleChange("has_other_degree", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -229,7 +260,7 @@ const Survey = () => {
                     required={has_other_degree === "yes"}
                     disabled={has_other_degree !== "yes"}
                     value={other_degree}
-                    onChange={e => handleChange(e, "other_degree")}
+                    onChange={e => handleChange("other_degree", e.currentTarget.value)}
                     className={InputClassName + " disabled:sr-only"}
                     placeholder="Please mention your degree"
                   />
@@ -251,7 +282,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === is_current_college}
-                        onChange={e => handleChange(e, "is_current_college")}
+                        onChange={e => handleChange("is_current_college", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -269,7 +300,7 @@ const Survey = () => {
                     required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={college_name}
-                    onChange={e => handleChange(e, "college_name")}
+                    onChange={e => handleChange("college_name", e.currentTarget.value)}
                     className={InputClassName + " disabled:sr-only"}
                     placeholder="University/College Name"
                   />
@@ -283,7 +314,7 @@ const Survey = () => {
                     required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={current_degree_program}
-                    onChange={e => handleChange(e, "current_degree_program")}
+                    onChange={e => handleChange("current_degree_program", e.currentTarget.value)}
                     className={InputClassName + " disabled:sr-only"}
                     placeholder="Your current degree program"
                   />
@@ -305,7 +336,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === is_current_working}
-                        onChange={e => handleChange(e, "is_current_working")}
+                        onChange={e => handleChange("is_current_working", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -329,7 +360,7 @@ const Survey = () => {
                               required
                               value={v.id}
                               checked={v.id === working_organization}
-                              onChange={e => handleChange(e, "working_organization")}
+                              onChange={e => handleChange("working_organization", e.currentTarget.value)}
                               className={RadioClassName}
                             />
                             <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -347,61 +378,65 @@ const Survey = () => {
                     <fieldset className="mt-2">
                       <legend className="sr-only">Working Organization</legend>
                       <div className="flex flex-col justify-center space-y-1">
-                        {career_organization.map((v, k, a) => k !== a.length - 1
+                        {career_organization.map((vv, kk, a) => kk !== a.length - 1
                           ? working_organization !== "Other"
                             ? (
                               <input
-                                key={k}
-                                id={k}
+                                key={kk}
+                                id={kk}
                                 name="working_organization_info"
                                 type="text"
                                 required
-                                value={""}
-                                disabled
-                                // onChange={e => handleChange(e, "working_organization")}
+                                value={working_organization_info[vv.id] || ""}
+                                onChange={e => handleChange("working_organization_info", { ...working_organization_info, [vv.id]: e.currentTarget.value })}
                                 className={TextAreaClassName}
-                                placeholder={v.name}
+                                placeholder={vv.name}
                               />
                             )
                             : (
-                              <div key={k}>
-                                <label htmlFor="thoughts" className={LabelClassName + " text-gray-400"}>
-                                  {v.name}
+                              <div key={kk} className="flex flex-col space-y-2 pt-2">
+                                <label htmlFor="thoughts" className={"text-sm text-gray-400"}>
+                                  {vv.name}
                                 </label>
                                 <textarea
-                                  name="advices"
-                                  id="advices"
+                                  name="working_organization_info"
+                                  id={kk}
                                   rows={3}
-                                  value={""}
-                                  onChange={e => handleChange(e, "advices")}
-                                  className={"border-0 bg-gray-200 p-2 text-sm"}
+                                  value={working_organization_info[vv.id] || ""}
+                                  required
+                                  onChange={e => handleChange("working_organization_info", { ...working_organization_info, [vv.id]: e.currentTarget.value })}
+                                  className={"border-0 bg-gray-100 p-2 text-sm"}
                                   placeholder="your answer here"
                                 ></textarea>
                               </div>
                             )
                           : (
-                            <div key={k} className="px-4">
-                              <label htmlFor="degree_coverage_career_rating" className={LabelClassName}>
-                                {v.name}
+                            <div key={kk} className="px-4">
+                              <label htmlFor="working_organization_info" className={LabelClassName}>
+                                {vv.name}
                               </label>
                               <fieldset className="mt-4">
-                                <legend className="sr-only">Degree Coverage Career Rating</legend>
+                                <legend className="sr-only">Working Organization Rating</legend>
                                 <div className="space-y-0 flex items-center space-x-0">
                                   <div className="text-sm text-gray-400 pl-8">lowest</div>
-                                  {rating.map((v) => (
-                                    <div key={v.id} className="flex items-center">
+                                  {rating.map((vvv) => (
+                                    <div key={vvv.id} className="flex items-center">
                                       <input
-                                        id={v.id}
-                                        name="degree_coverage_career_rating"
+                                        id={"working_organization_rating"}
+                                        name={"working_organization_rating"}
                                         type="radio"
-                                        value={""}
-                                        disabled
-                                        // checked={v.id === degree_coverage_career_rating}
-                                        // onChange={e => handleChange(e, "degree_coverage_career_rating")}
+                                        value={vvv.id}
+                                        required
+                                        checked={vvv.id === working_organization_info[vv.id]}
+                                        onChange={e => {
+                                          console.log(e.currentTarget.value)
+                                          handleChange("working_organization_info", { ...working_organization_info, [vv.id]: e.currentTarget.value })
+                                        }
+                                        }
                                         className={RadioClassName}
                                       />
-                                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
-                                        {v.name}
+                                      <label htmlFor={vvv.id} className="text-sm text-gray-400 hidden">
+                                        {vvv.name}
                                       </label>
                                     </div>
                                   ))}
@@ -434,7 +469,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === current_job_rating}
-                        onChange={e => handleChange(e, "current_job_rating")}
+                        onChange={e => handleChange("current_job_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -461,7 +496,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === job_related_degree_rating}
-                        onChange={e => handleChange(e, "job_related_degree_rating")}
+                        onChange={e => handleChange("job_related_degree_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -490,7 +525,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === degree_coverage_career_rating}
-                        onChange={e => handleChange(e, "degree_coverage_career_rating")}
+                        onChange={e => handleChange("degree_coverage_career_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -519,7 +554,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === activites_coverage_career_rating}
-                        onChange={e => handleChange(e, "activites_coverage_career_rating")}
+                        onChange={e => handleChange("activites_coverage_career_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -548,7 +583,7 @@ const Survey = () => {
                         required
                         value={v.id}
                         checked={v.id === is_degree_important}
-                        onChange={e => handleChange(e, "is_degree_important")}
+                        onChange={e => handleChange("is_degree_important", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
@@ -576,7 +611,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === ict_dept_rating}
-                        onChange={e => handleChange(e, "ict_dept_rating")}
+                        onChange={e => handleChange("ict_dept_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -605,7 +640,7 @@ const Survey = () => {
                         type="radio"
                         value={v.id}
                         checked={v.id === utycc_facilities_rating}
-                        onChange={e => handleChange(e, "utycc_facilities_rating")}
+                        onChange={e => handleChange("utycc_facilities_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
                       <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
@@ -627,7 +662,7 @@ const Survey = () => {
                 id="thoughts"
                 rows={1}
                 value={thoughts}
-                onChange={e => handleChange(e, "thoughts")}
+                onChange={e => handleChange("thoughts", e.currentTarget.value)}
                 className={TextAreaClassName}
                 placeholder="your answer here"
               ></textarea>
@@ -642,7 +677,7 @@ const Survey = () => {
                 id="suggestions"
                 rows={1}
                 value={suggestions}
-                onChange={e => handleChange(e, "suggestions")}
+                onChange={e => handleChange("suggestions", e.currentTarget.value)}
                 className={TextAreaClassName}
                 placeholder="your answer here"
               ></textarea>
@@ -657,7 +692,7 @@ const Survey = () => {
                 id="advices"
                 rows={1}
                 value={advices}
-                onChange={e => handleChange(e, "advices")}
+                onChange={e => handleChange("advices", e.currentTarget.value)}
                 className={TextAreaClassName}
                 placeholder="your answer here"
               ></textarea>

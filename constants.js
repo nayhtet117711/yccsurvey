@@ -73,7 +73,7 @@ export const ownBusinessInfo = [
 
 export const otherOrgInfo = [
     { id: "other_org_info", name: "Please specify further(optional)" },
-    { id: "business_rating", name: "How likely is it that you would change your career?" }
+    { id: "other_business_rating", name: "How likely is it that you would change your career?" }
 ]
 
 
