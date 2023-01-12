@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { degree_levels, genders, graduated_years, majors, organizations, rating, yes_or_no } from "../../constants";
+import { companyInfo, degree_levels, genders, graduated_years, majors, organizations, rating, yes_or_no } from "../../constants";
 import Img5 from "../assets/img5.svg"
 import Img6 from "../assets/img6.svg"
-import useOrganization from "../hooks/useOrganization";
 import useQueryParam from "../hooks/useQueryParam";
 import { useCookies } from 'react-cookie';
 
@@ -29,7 +28,6 @@ const Survey = () => {
     college_name = "",
     current_degree_program = "",
     is_current_working = "",
-    working_organization = "",
     working_organization_info = {},
     current_job_rating = "",
     job_related_degree_rating = "",
@@ -42,8 +40,6 @@ const Survey = () => {
     suggestions = "",
     advices = "",
   } = surveyData;
-
-  const career_organization = useOrganization(working_organization);
 
   const navigate = useNavigate();
 
@@ -87,6 +83,22 @@ const Survey = () => {
     if (page !== "3") {
       return navigate({ pathname: "/survey", search: `?page=${+page + 1}` })
     }
+    // Going to submit
+    console.log("surveyData: ", surveyData)
+    fetch("http://127.0.0.1:5001/surveys", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(surveyData)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("data: ", data)
+      alert("Thank you for participating.")
+      navigate("/results/overview")
+    })
+    .catch(error => console.log("catch: ", error))
   }
 
   return (
@@ -108,7 +120,7 @@ const Survey = () => {
               />
             </div>
 
-            <div className="p-4">
+            {/* <div className="p-4">
               <label htmlFor="gender" className={LabelClassName}>2. Gender *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Gender</legend>
@@ -146,10 +158,10 @@ const Survey = () => {
                 className={InputClassName}
                 placeholder="somebody@gmail.com"
               />
-            </div>
+            </div> */}
 
             <div className="p-4">
-              <label htmlFor="graduated_year" className={LabelClassName}>4. Graduated Year *</label>
+              <label htmlFor="graduated_year" className={LabelClassName}>2. Graduated Year *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Graduated Year</legend>
                 <div className="space-y-4 flex flex-col justify-center">
@@ -175,7 +187,7 @@ const Survey = () => {
             </div>
 
             <div className="p-4">
-              <label htmlFor="degree_level" className={LabelClassName}>5. Degree Level *</label>
+              <label htmlFor="degree_level" className={LabelClassName}>3. Degree Level *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Degree Level</legend>
                 <div className="space-y-4 flex flex-col justify-center">
@@ -201,7 +213,7 @@ const Survey = () => {
             </div>
 
             <div className="p-4">
-              <label htmlFor="major" className={LabelClassName}>6. Major (or Department) *</label>
+              <label htmlFor="major" className={LabelClassName}>4. Major (or Department) *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Major</legend>
                 <div className="space-y-4 flex flex-col justify-center">
@@ -229,7 +241,7 @@ const Survey = () => {
 
           {page === "2" && <>
             <div className="p-4">
-              <label htmlFor="has_other_degree" className={LabelClassName}>7. Have you received other degrees? *</label>
+              <label htmlFor="has_other_degree" className={LabelClassName}>5. Have you received other degrees? *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Has Other Degree</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
@@ -269,7 +281,7 @@ const Survey = () => {
             </div>
 
             <div className="p-4">
-              <label htmlFor="is_current_college" className={LabelClassName}>8. Are you currently in the University/College? *</label>
+              <label htmlFor="is_current_college" className={LabelClassName}>6. Are you currently in the University/College? *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Is Current College Student?</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
@@ -297,12 +309,12 @@ const Survey = () => {
                     type="text"
                     name="college_name"
                     id="college_name"
-                    required={is_current_college === "yes"}
+                    // required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={college_name}
                     onChange={e => handleChange("college_name", e.currentTarget.value)}
                     className={InputClassName + " disabled:sr-only"}
-                    placeholder="University/College Name"
+                    placeholder="University/College Name (optional)"
                   />
                 </div>
                 <div>
@@ -311,19 +323,19 @@ const Survey = () => {
                     type="text"
                     name="current_degree_program"
                     id="current_degree_program"
-                    required={is_current_college === "yes"}
+                    // required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={current_degree_program}
                     onChange={e => handleChange("current_degree_program", e.currentTarget.value)}
                     className={InputClassName + " disabled:sr-only"}
-                    placeholder="Your current degree program"
+                    placeholder="Your current degree program (optional)"
                   />
                 </div>
               </fieldset>
             </div>
 
             <div className="p-4">
-              <label htmlFor="is_current_working" className={LabelClassName}>9. Are you working now? *</label>
+              <label htmlFor="is_current_working" className={LabelClassName}>7. Are you working now? *</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Is Current Working?</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
@@ -347,40 +359,11 @@ const Survey = () => {
                 </div>
                 {is_current_working === "yes" &&
                   <div className="p-4">
-                    <label htmlFor="working_organization" className={LabelClassName}>i. Which organization are you working for? *</label>
-                    <fieldset className="mt-4">
-                      <legend className="sr-only">Working Organization</legend>
-                      <div className="space-y-4 flex flex-col justify-center">
-                        {organizations.map((v) => (
-                          <div key={v.id} className="flex items-center">
-                            <input
-                              id={v.id}
-                              name="working_organization"
-                              type="radio"
-                              required
-                              value={v.id}
-                              checked={v.id === working_organization}
-                              onChange={e => handleChange("working_organization", e.currentTarget.value)}
-                              className={RadioClassName}
-                            />
-                            <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
-                              {v.name}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </fieldset>
-                  </div>
-                }
-                {working_organization &&
-                  <div className="p-4">
                     <label htmlFor="working_organization" className={LabelClassName}>Please fill the following: *</label>
                     <fieldset className="mt-2">
                       <legend className="sr-only">Working Organization</legend>
                       <div className="flex flex-col justify-center space-y-1">
-                        {career_organization.map((vv, kk, a) => kk !== a.length - 1
-                          ? working_organization !== "Other"
-                            ? (
+                        {companyInfo.map((vv, kk, a) => (
                               <input
                                 key={kk}
                                 id={kk}
@@ -392,59 +375,7 @@ const Survey = () => {
                                 className={TextAreaClassName}
                                 placeholder={vv.name}
                               />
-                            )
-                            : (
-                              <div key={kk} className="flex flex-col space-y-2 pt-2">
-                                <label htmlFor="thoughts" className={"text-sm text-gray-400"}>
-                                  {vv.name}
-                                </label>
-                                <textarea
-                                  name="working_organization_info"
-                                  id={kk}
-                                  rows={3}
-                                  value={working_organization_info[vv.id] || ""}
-                                  required
-                                  onChange={e => handleChange("working_organization_info", { ...working_organization_info, [vv.id]: e.currentTarget.value })}
-                                  className={"border-0 bg-gray-100 p-2 text-sm"}
-                                  placeholder="your answer here"
-                                ></textarea>
-                              </div>
-                            )
-                          : (
-                            <div key={kk} className="px-4">
-                              <label htmlFor="working_organization_info" className={LabelClassName}>
-                                {vv.name}
-                              </label>
-                              <fieldset className="mt-4">
-                                <legend className="sr-only">Working Organization Rating</legend>
-                                <div className="space-y-0 flex items-center space-x-0">
-                                  <div className="text-sm text-gray-400 pl-8">lowest</div>
-                                  {rating.map((vvv) => (
-                                    <div key={vvv.id} className="flex items-center">
-                                      <input
-                                        id={"working_organization_rating"}
-                                        name={"working_organization_rating"}
-                                        type="radio"
-                                        value={vvv.id}
-                                        required
-                                        checked={vvv.id === working_organization_info[vv.id]}
-                                        onChange={e => {
-                                          console.log(e.currentTarget.value)
-                                          handleChange("working_organization_info", { ...working_organization_info, [vv.id]: e.currentTarget.value })
-                                        }
-                                        }
-                                        className={RadioClassName}
-                                      />
-                                      <label htmlFor={vvv.id} className="text-sm text-gray-400 hidden">
-                                        {vvv.name}
-                                      </label>
-                                    </div>
-                                  ))}
-                                  <div className="text-sm text-gray-400 pl-8">highest</div>
-                                </div>
-                              </fieldset>
-                            </div>
-                          ))
+                            ))
                         }
                       </div>
                     </fieldset>
@@ -597,10 +528,10 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="ict_dept_rating" className={LabelClassName}>
-                15. Based on your experience as a student, rate the performance of the Department of Information Science.
+                15. Based on your experience as a student, rate the performance of the Major Department
               </label>
               <fieldset className="mt-4">
-                <legend className="sr-only">ICT Department Rating</legend>
+                <legend className="sr-only">Major Department Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
                   <div className="text-sm text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
@@ -678,21 +609,6 @@ const Survey = () => {
                 rows={1}
                 value={suggestions}
                 onChange={e => handleChange("suggestions", e.currentTarget.value)}
-                className={TextAreaClassName}
-                placeholder="your answer here"
-              ></textarea>
-            </div>
-
-            <div className="p-4">
-              <label htmlFor="thoughts" className={LabelClassName}>
-                19. Any advice for juniors?
-              </label>
-              <textarea
-                name="advices"
-                id="advices"
-                rows={1}
-                value={advices}
-                onChange={e => handleChange("advices", e.currentTarget.value)}
                 className={TextAreaClassName}
                 placeholder="your answer here"
               ></textarea>

@@ -8,7 +8,8 @@ export const graduated_years = [
     { id: "2015-2016", name: "2015-2016" },
     { id: "2016-2017", name: "2016-2017" },
     { id: "2017-2018", name: "2017-2018" },
-    { id: "2018-2019", name: "2018-2019" }
+    { id: "2018-2019", name: "2018-2019" },
+    { id: "2019-2020", name: "2019-2020" }
 ]
 
 export const degree_levels = [
@@ -18,11 +19,11 @@ export const degree_levels = [
 ]
 
 export const majors = [
-    { id: "Information Science and Technology", name: "Information Science and Technology" },
-    { id: "Computer Engineering", name: "Computer Engineering" },
-    { id: "Electronics", name: "Electronics" },
-    { id: "Materials and Metallurgy", name: "Materials and Metallurgy" },
-    { id: "Mechanical Precision and Automation", name: "Mechanical Precision and Automation" }
+    { id: "Information Science and Technology", name: "Information Science and Technology", abbr: "IST" },
+    { id: "Computer Engineering", name: "Computer Engineering", abbr: "CE" },
+    { id: "Electronics", name: "Electronics", abbr: "ECE" },
+    { id: "Materials and Metallurgy", name: "Materials and Metallurgy", abbr: "AME" },
+    { id: "Mechanical Precision and Automation", name: "Mechanical Precision and Automation", abbr: "PRE" }
 ]
 
 export const yes_or_no = [
@@ -62,7 +63,6 @@ export const companyInfo = [
     { id: "total_exp", name: "Total Months of Experience" },
     { id: "salary", name: "Monthly salary" },
     { id: "position", name: "Position" },
-    { id: "com_rating", name: "How likely is it that you would recommend this company to a friend or colleague?" }
 ]
 
 export const ownBusinessInfo = [
