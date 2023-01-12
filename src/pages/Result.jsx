@@ -144,7 +144,7 @@ function ResultOverview({ resultData }) {
               <StackLineChartFull 
                 series={overview_aluminirating}
                 labels={['Job Satisfaction', 'Degree Relaivity']}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -244,7 +244,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChartFull 
                 series={utycc_overallrating}
                 labels={["Program Coverage", "Activities Usefulness", "Department Ratings", "Facilities Ratings"]}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -265,7 +265,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_programcoveragerating}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -282,7 +282,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_activityusefulnessrating}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -299,7 +299,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_departmentrating}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -316,7 +316,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_facitilityrating}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#5C99C7', '#8A7ED5', '#505ED1', '#3586FF', '#150099']}
+                colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
               />
             </div>
           </div>
@@ -337,7 +337,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_intershipquestion}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#8A7ED5', '#150099']}
+                colors={['#150099', '#8A7ED5']}
               />
             </div>
           </div>
@@ -374,7 +374,7 @@ function ResultUTYCC({ resultData }) {
               <StackLineChart 
                 series={utycc_degreequestion}
                 labels={["IST", "CE", "ECE", "AME", "PRE"]}
-                colors={['#8A7ED5', '#150099']}
+                colors={['#150099', '#8A7ED5']}
               />
             </div>
           </div>

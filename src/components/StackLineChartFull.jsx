@@ -71,6 +71,7 @@ export const StackLineChartFull = ({ series=[], labels=[], colors=[] }) => {
         legend: {
             show: true,
             position: 'right',
+            inverseOrder: true,
             fontSize: 15,
             markers: {
                 width: 20,

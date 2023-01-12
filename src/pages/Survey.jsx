@@ -38,7 +38,7 @@ const Survey = () => {
     utycc_facilities_rating = "",
     thoughts = "",
     suggestions = "",
-    advices = "",
+    is_internship_helpful = "",
   } = surveyData;
 
   const navigate = useNavigate();
@@ -387,7 +387,7 @@ const Survey = () => {
 
           {page === "3" && <>
             <div className="p-4">
-              <label htmlFor="current_job_rating" className={LabelClassName}>10. How satisfied are you with your current job?</label>
+              <label htmlFor="current_job_rating" className={LabelClassName}>8. How satisfied are you with your current job?</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Current Job Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
@@ -414,7 +414,7 @@ const Survey = () => {
             </div>
 
             <div className="p-4">
-              <label htmlFor="job_related_degree_rating" className={LabelClassName}>11. How closely related is your current job to your degree major?</label>
+              <label htmlFor="job_related_degree_rating" className={LabelClassName}>9. How closely related is your current job to your degree major?</label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Job Related Degree Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
@@ -442,7 +442,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="degree_coverage_career_rating" className={LabelClassName}>
-                12. The program studied in your university coverage in your professional life.
+                10. The program studied in your university coverage in your professional life.
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Degree Coverage Career Rating</legend>
@@ -471,7 +471,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="activites_coverage_career_rating" className={LabelClassName}>
-                13. How useful were the activities (projects, mini-thesis, field trip) in helping you with your current job?
+                11. How useful were the activities (projects, mini-thesis, field trip) in helping you with your current job?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Activites Coverage Career Rating</legend>
@@ -499,8 +499,36 @@ const Survey = () => {
             </div>
 
             <div className="p-4">
+              <label htmlFor="is_internship_helpful" className={LabelClassName}>
+                12. Did the internship give a valuable experience to fulfill the basic requirement of the job?
+              </label>
+              <fieldset className="mt-4">
+                <legend className="sr-only">Is Internship Helpful?</legend>
+                <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                  {yes_or_no.map((v) => (
+                    <div key={v.id} className="flex items-center">
+                      <input
+                        id={v.id}
+                        name="is_internship_helpful"
+                        type="radio"
+                        required
+                        value={v.id}
+                        checked={v.id === is_internship_helpful}
+                        onChange={e => handleChange("is_internship_helpful", e.currentTarget.value)}
+                        className={RadioClassName}
+                      />
+                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                        {v.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </fieldset>
+            </div>
+
+            <div className="p-4">
               <label htmlFor="is_degree_important" className={LabelClassName}>
-                14. Do you think that the degree of UTYCC is an important factor to increase employability?
+                13. Do you think that the degree of UTYCC is an important factor to increase employability?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Is Degree Important?</legend>
@@ -528,7 +556,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="ict_dept_rating" className={LabelClassName}>
-                15. Based on your experience as a student, rate the performance of the Major Department
+                14. Based on your experience as a student, rate the performance of the Major Department
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Major Department Rating</legend>
@@ -557,7 +585,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="utycc_facilities_rating" className={LabelClassName}>
-                16. How good do you think about the facilities UTYCC provides?
+                15. How good do you think about the facilities UTYCC provides?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">UTYCC Facilities Rating</legend>
@@ -586,7 +614,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="thoughts" className={LabelClassName}>
-                17. What are your thoughts of the teaching system of UTYCC?
+                16. What are your thoughts of the teaching system of UTYCC?
               </label>
               <textarea
                 name="thoughts"
@@ -601,7 +629,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="thoughts" className={LabelClassName}>
-                18. Please give suggestions to improve our University.
+                17. Please give suggestions to improve our University.
               </label>
               <textarea
                 name="suggestions"
