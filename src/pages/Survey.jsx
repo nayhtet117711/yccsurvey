@@ -85,7 +85,7 @@ const Survey = () => {
     }
     // Going to submit
     console.log("surveyData: ", surveyData)
-    fetch("http://127.0.0.1:5001/surveys", {
+    fetch(`${import.meta.env.VITE_API_URL}/surveys`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

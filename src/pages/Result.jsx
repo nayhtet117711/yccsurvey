@@ -14,7 +14,7 @@ import { StackLineChart } from "../components/StackLineChart";
 import { StackLineChartFull } from "../components/StackLineChartFull";
 
 function fetchResultApi(onSuccess, onError) {
-  fetch("http://127.0.0.1:5001/surveys")
+  fetch(`${import.meta.env.VITE_API_URL}/surveys`)
     .then(res => res.json())
     .then(data => {
       if(onSuccess) onSuccess(data)
