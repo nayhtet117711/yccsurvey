@@ -1,7 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
 export const PieChart = ({ hideLegend=false, series=[], labels=[], colors=[], width=350, isDonut=false }) => {
-
     const options = {
         chart: {
           width,
@@ -16,7 +15,7 @@ export const PieChart = ({ hideLegend=false, series=[], labels=[], colors=[], wi
             },
         },
         legend: {
-            show: hideLegend ? false : true,
+            show: !hideLegend,
             position: 'bottom',
             fontSize: 15,
             width: 150,
@@ -37,7 +36,6 @@ export const PieChart = ({ hideLegend=false, series=[], labels=[], colors=[], wi
             }
         }
       }
-
 
     return (
         <ReactApexChart

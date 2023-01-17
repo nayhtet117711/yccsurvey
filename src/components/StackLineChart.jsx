@@ -1,29 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
 export const StackLineChart = ({ series=[], labels=[], colors=[] }) => {
-
-    // const series = [{
-    //         name: 'Highest',
-    //         data: [44, 65, 33, 44, 22]
-    //     }, 
-    //     {
-    //         name: 'High',
-    //         data: [76, 75, 44, 33, 11]
-    //     }, 
-    //     {
-    //         name: 'Normal',
-    //         data: [35, 81, 77, 22, 44]
-    //     },
-    //     {
-    //         name: 'Low',
-    //         data: [35, 21, 22, 11, 30]
-    //     },
-    //     {
-    //         name: 'Lowest',
-    //         data: [35, 31, 11, 22, 31]
-    //     }
-    // ]
-
     const options = {
         chart: {
             type: 'bar',
@@ -58,7 +35,7 @@ export const StackLineChart = ({ series=[], labels=[], colors=[] }) => {
             },
             labels: {
                 formatter: function(val) {
-                    return val
+                    return val.toLocaleString()
                 }
             }
         },
@@ -81,7 +58,7 @@ export const StackLineChart = ({ series=[], labels=[], colors=[] }) => {
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return val
+                    return val.toLocaleString()
                 }
             }
         }

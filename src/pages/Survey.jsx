@@ -6,10 +6,10 @@ import Img6 from "../assets/img6.svg"
 import useQueryParam from "../hooks/useQueryParam";
 import { useCookies } from 'react-cookie';
 
-const LabelClassName = `text-sm text-gray-900`;
-const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none`;
+const LabelClassName = `text-xl text-gray-900`;
+const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none`;
 const RadioClassName = `cursor-pointer h-5 w-5 ml-8 appearance-none border-2 border-gray-300 checked:bg-violet-600 rounded-full`
-const TextAreaClassName = `block w-full max-w-xs py-2 px-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-sm appearance-none bg-transparent`;
+const TextAreaClassName = `block w-full max-w-xs py-2 px-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none bg-transparent`;
 
 const Survey = () => {
   const [cookies, setCookie] = useCookies(['survey-data']);
@@ -120,46 +120,6 @@ const Survey = () => {
               />
             </div>
 
-            {/* <div className="p-4">
-              <label htmlFor="gender" className={LabelClassName}>2. Gender *</label>
-              <fieldset className="mt-4">
-                <legend className="sr-only">Gender</legend>
-                <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                  {genders.map((v) => (
-                    <div key={v.id} className="flex items-center">
-                      <input
-                        id={v.id}
-                        name="gender"
-                        type="radio"
-                        required
-                        value={v.id}
-                        checked={v.id === gender}
-                        onChange={e => handleChange("gender", e.currentTarget.value)}
-                        className={RadioClassName}
-                      />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
-                        {v.name}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-
-            <div className="p-4">
-              <label htmlFor="email" className={LabelClassName}>3. Email address *</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                required
-                value={email}
-                onChange={e => handleChange("email", e.currentTarget.value)}
-                className={InputClassName}
-                placeholder="somebody@gmail.com"
-              />
-            </div> */}
-
             <div className="p-4">
               <label htmlFor="graduated_year" className={LabelClassName}>2. Graduated Year *</label>
               <fieldset className="mt-4">
@@ -177,7 +137,7 @@ const Survey = () => {
                         onChange={e => handleChange("graduated_year", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -203,7 +163,7 @@ const Survey = () => {
                         onChange={e => handleChange("degree_level", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -229,7 +189,7 @@ const Survey = () => {
                         onChange={e => handleChange("major", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -257,7 +217,7 @@ const Survey = () => {
                         onChange={e => handleChange("has_other_degree", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -297,7 +257,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_current_college", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -309,7 +269,7 @@ const Survey = () => {
                     type="text"
                     name="college_name"
                     id="college_name"
-                    // required={is_current_college === "yes"}
+                    required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={college_name}
                     onChange={e => handleChange("college_name", e.currentTarget.value)}
@@ -323,7 +283,7 @@ const Survey = () => {
                     type="text"
                     name="current_degree_program"
                     id="current_degree_program"
-                    // required={is_current_college === "yes"}
+                    required={is_current_college === "yes"}
                     disabled={is_current_college !== "yes"}
                     value={current_degree_program}
                     onChange={e => handleChange("current_degree_program", e.currentTarget.value)}
@@ -351,7 +311,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_current_working", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -391,7 +351,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">Current Job Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -403,12 +363,12 @@ const Survey = () => {
                         onChange={e => handleChange("current_job_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>
@@ -418,7 +378,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">Job Related Degree Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -430,12 +390,12 @@ const Survey = () => {
                         onChange={e => handleChange("job_related_degree_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>
@@ -447,7 +407,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">Degree Coverage Career Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -459,12 +419,12 @@ const Survey = () => {
                         onChange={e => handleChange("degree_coverage_career_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>
@@ -476,7 +436,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">Activites Coverage Career Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -488,12 +448,12 @@ const Survey = () => {
                         onChange={e => handleChange("activites_coverage_career_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>
@@ -517,7 +477,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_internship_helpful", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -545,7 +505,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_degree_important", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-sm text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -561,7 +521,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">Major Department Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -573,12 +533,12 @@ const Survey = () => {
                         onChange={e => handleChange("ict_dept_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>
@@ -590,7 +550,7 @@ const Survey = () => {
               <fieldset className="mt-4">
                 <legend className="sr-only">UTYCC Facilities Rating</legend>
                 <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-sm text-gray-400 pl-8">lowest</div>
+                  <div className="text-xl text-gray-400 pl-8">lowest</div>
                   {rating.map((v) => (
                     <div key={v.id} className="flex items-center">
                       <input
@@ -602,12 +562,12 @@ const Survey = () => {
                         onChange={e => handleChange("utycc_facilities_rating", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="text-sm text-gray-400 hidden">
+                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
                         {v.name}
                       </label>
                     </div>
                   ))}
-                  <div className="text-sm text-gray-400 pl-8">highest</div>
+                  <div className="text-xl text-gray-400 pl-8">highest</div>
                 </div>
               </fieldset>
             </div>

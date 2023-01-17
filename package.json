@@ -14,7 +14,8 @@
     "react-apexcharts": "^1.4.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "react-wordcloud": "^1.2.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

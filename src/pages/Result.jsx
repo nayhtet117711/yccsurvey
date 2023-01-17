@@ -12,6 +12,7 @@ import { QuoteText } from "../components/QuoteText";
 import { ResultTab } from "../components/ResultTab";
 import { StackLineChart } from "../components/StackLineChart";
 import { StackLineChartFull } from "../components/StackLineChartFull";
+import { WordCloud } from "../components/WordCloud";
 
 function fetchResultApi(onSuccess, onError) {
   fetch(`${import.meta.env.VITE_API_URL}/surveys`)
@@ -225,6 +226,59 @@ function ResultUTYCC({ resultData }) {
   const utycc_intershipquestion_summary_pie = resultData?.utycc_intershipquestion_summary_pie
   const utycc_degreequestion = resultData?.utycc_degreequestion
   const utycc_degreequestion_summary_pie = resultData?.utycc_degreequestion_summary_pie
+  const utycc_thought_polarity_positive_words = resultData?.utycc_thought_polarity_positive
+  const utycc_thought_polarity_neutral_words = resultData?.utycc_thought_polarity_neutral
+  const utycc_thought_polarity_negative_words = resultData?.utycc_thought_polarity_negative
+  const utycc_suggestion_words_raw = resultData?.utycc_suggestion_words
+  const utycc_thought_polarity_graph = resultData?.utycc_thought_polarity_graph
+
+  const utycc_thought_polarity_positive = utycc_thought_polarity_positive_words.split(" ").reduce((r, w) => {
+    if(r.length === 0) return [{ text: w, value: 1 }]
+    const wIndex = r.findIndex(v => v.text === w)
+    const R = [...r]
+    if(wIndex >=0) {
+      R[wIndex].value += 1
+      return R
+    }
+    R.push({ text: w, value: 1 })
+    return R
+  }, [])
+
+  const utycc_thought_polarity_neutral = utycc_thought_polarity_neutral_words.split(" ").reduce((r, w) => {
+    if(r.length === 0) return [{ text: w, value: 1 }]
+    const wIndex = r.findIndex(v => v.text === w)
+    const R = [...r]
+    if(wIndex >=0) {
+      R[wIndex].value += 1
+      return R
+    }
+    R.push({ text: w, value: 1 })
+    return R
+  }, [])
+
+  const utycc_thought_polarity_negative = utycc_thought_polarity_negative_words.split(" ").reduce((r, w) => {
+    if(r.length === 0) return [{ text: w, value: 1 }]
+    const wIndex = r.findIndex(v => v.text === w)
+    const R = [...r]
+    if(wIndex >=0) {
+      R[wIndex].value += 1
+      return R
+    }
+    R.push({ text: w, value: 1 })
+    return R
+  }, [])
+
+  const utycc_suggestion_words = utycc_suggestion_words_raw.split(" ").reduce((r, w) => {
+    if(r.length === 0) return [{ text: w, value: 1 }]
+    const wIndex = r.findIndex(v => v.text === w)
+    const R = [...r]
+    if(wIndex >=0) {
+      R[wIndex].value += 1
+      return R
+    }
+    R.push({ text: w, value: 1 })
+    return R
+  }, [])
 
   const internship_yes_percent = Math.round(utycc_intershipquestion_summary_pie[0]/(utycc_intershipquestion_summary_pie[0]+utycc_intershipquestion_summary_pie[1]) * 100)
   const degree_yes_percent = Math.round(utycc_degreequestion_summary_pie[0]/(utycc_degreequestion_summary_pie[0]+utycc_degreequestion_summary_pie[1]) * 100)
@@ -396,6 +450,65 @@ function ResultUTYCC({ resultData }) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
+        <div className="flex px-[11rem] mb-8"><HeaderTab text="Student Voices About Teaching System" /></div>
+        <div className="flex-[4] px-[11rem] py-4">
+          <div className="flex">
+            <WordCloud className="flex-1" data={utycc_thought_polarity_positive} />
+            <div className="flex-1 flex justify-start items-center p-5">
+              <div className="text-xl italic tracking-wide font-light">Positive</div>
+            </div>
+          </div>
+        </div>
+        <div className="flex-[4] px-[11rem] py-4">
+          <div className="flex">
+            <div className="flex-1 flex justify-end items-center p-5">
+              <div className="text-xl italic tracking-wide font-light">Neutral</div>
+            </div>
+            <WordCloud className="flex-1" data={utycc_thought_polarity_neutral} />
+          </div>
+        </div>
+        <div className="flex-[4] px-[11rem] py-4">
+          <div className="flex">
+            <WordCloud className="flex-1" data={utycc_thought_polarity_negative} />
+            <div className="flex-1 flex justify-start items-center p-5">
+              <div className="text-xl italic tracking-wide font-light">Negative</div>
+            </div>
+          </div>
+        </div>
+        <div className="p-2 font-light text-center -m-3">Comments about Teaching System</div>
+      </div>
+
+      <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
+        <div className="flex px-5">
+          <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+          Number of <br/>
+          respondents <br/>
+          according to major
+          </div>
+          <div className="flex-[4]">
+            <StackLineChart 
+              series={utycc_thought_polarity_graph}
+              labels={["IST", "CE", "ECE", "AME", "PRE"]}
+              colors={['#150099', '#3586FF', '#505ED1', '#8A7ED5', '#5C99C7']}
+            />
+          </div>
+        </div>
+        <div className="p-2 pt-0 text-md text-center font-light">Polarity of Teaching System According to Majors</div>
+      </div>
+
+      <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
+        <div className="flex px-[11rem] mb-8"><HeaderTab text="Suggestions" /></div>
+        <div className="flex-[4] px-[11rem] py-4">
+          <div className="flex justify-center">
+            <div className="flex-1"></div>
+            <WordCloud className="flex-[2]" data={utycc_suggestion_words} />
+            <div className="flex-1"></div>
+          </div>
+        </div>
+        <div className="p-2 font-light text-center -m-3">Wordcloud of Suggestions</div>
       </div>
 
     </div>

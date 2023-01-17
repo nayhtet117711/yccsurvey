@@ -1,29 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
 export const StackLineChartFull = ({ series=[], labels=[], colors=[] }) => {
-
-    // const series = [{
-    //         name: 'Highest',
-    //         data: [44, 65]
-    //     }, 
-    //     {
-    //         name: 'High',
-    //         data: [76, 75]
-    //     }, 
-    //     {
-    //         name: 'Normal',
-    //         data: [35, 81]
-    //     },
-    //     {
-    //         name: 'Low',
-    //         data: [35, 21]
-    //     },
-    //     {
-    //         name: 'Lowest',
-    //         data: [35, 31]
-    //     }
-    // ]
-
     const options = {
         chart: {
             type: 'bar',

@@ -1,18 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
 export const GroupLineChart = ({ series=[], labels=[], colors=[] }) => {
-
-    // const series = [{
-    //     name: 'Bachelor',
-    //     data: [44, 55, 57, 56, 61]
-    // }, {
-    //     name: 'Master',
-    //     data: [76, 85, 101, 98, 87]
-    // }, {
-    //     name: 'PhD',
-    //     data: [35, 41, 36, 26, 45]
-    // }]
-
     const options = {
         chart: {
             type: 'bar',
@@ -43,6 +31,11 @@ export const GroupLineChart = ({ series=[], labels=[], colors=[] }) => {
         yaxis: {
             title: {
                 show: false
+            },
+            labels: {
+                formatter: function(val) {
+                    return val.toLocaleString()
+                }
             }
         },
         fill: {
@@ -55,7 +48,7 @@ export const GroupLineChart = ({ series=[], labels=[], colors=[] }) => {
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return val
+                    return val.toLocaleString()
                 }
             }
         }
