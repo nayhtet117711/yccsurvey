@@ -5,8 +5,8 @@ import SocialWeb from "../assets/social-website.svg"
 
 function Footer() {
   return (
-    <div className="relative w-full mt-3">
-      <img alt="header-banner" src={FooterBanner} className="w-full hidden lg:block" />
+    <div className="relative w-full mt-3 overflow-hidden">
+      <img alt="header-banner" src={FooterBanner} className="w-full hidden lg:block -mb-36" />
       <div className="relative lg:absolute bottom-0 inset-x-0 flex flex-wrap lg:flex-nowrap bg-indigo-400 lg:bg-transparent">
         <div className="flex-1 flex justify-start lg:justify-center py-3 lg:pb-20 items-end pl-10 lg:pl-0">
           <div>

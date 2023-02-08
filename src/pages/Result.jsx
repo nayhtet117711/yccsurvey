@@ -64,7 +64,7 @@ function Result() {
   )
 
   return (
-    <div className="grow">
+    <div className="grow max-w-screen overflow-x-hidden">
       <div className="px-2 md:px-[11rem] relative">
         <ResultTab />
       </div>
@@ -103,7 +103,7 @@ function ResultOverview({ resultData }) {
           </div>
           <div className="flex-[4]">
             <div className="flex px-5">
-              <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light -rotate-90 lg:rotate-0">
+              <div className="p-0 flex flex-col justify-center text-md text-center whitespace-nowrap font-light -rotate-90 lg:rotate-0">
               MMK
               </div>
               <div className="flex-[4]">
@@ -135,9 +135,9 @@ function ResultOverview({ resultData }) {
           />
         </div>
       </div>
-      <div className="gap-5 justify-center">
-        <div className="min-w-[50%] overflow-x-auto">
-          <div className="flex px-0 md:px-5 min-w-[500px]">
+      <div className="flex flex-col gap-5 items-center">
+        <div className="overflow-x-auto">
+          <div className="flex px-0 md:px-5 max-w-none md:max-w-[600px]">
             <div className="p-0 md:p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 lg:rotate-0">
             Alumni working <br/>
             in Companies
@@ -292,7 +292,7 @@ function ResultUTYCC({ resultData }) {
         <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Overall Ratings" /></div>
         <div className="px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[500px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents
             </div>
@@ -312,7 +312,7 @@ function ResultUTYCC({ resultData }) {
         <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Ratings Accoding to Major" /></div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[500px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -330,7 +330,7 @@ function ResultUTYCC({ resultData }) {
 
         <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[500px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -347,7 +347,7 @@ function ResultUTYCC({ resultData }) {
         </div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[500px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -362,9 +362,9 @@ function ResultUTYCC({ resultData }) {
           </div>
           <div className="p-2 pt-0 text-md text-center font-light">Department Ratings</div>
         </div>
-        <div className="flex-[4] px-2 mdpx-[11rem] py-4 overflow-x-auto">
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[500px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -385,7 +385,7 @@ function ResultUTYCC({ resultData }) {
         <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Internship Experience" /></div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[600px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -418,11 +418,11 @@ function ResultUTYCC({ resultData }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
+      <div className="flex flex-col gap-5 max-w-full py-8 pt-16">
         <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Impact of YCC Degree" /></div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
           <div className="flex px-2 md:px-5 min-w-[600px]">
-            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+            <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -455,7 +455,7 @@ function ResultUTYCC({ resultData }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
+      <div className="flex flex-col gap-5 max-w-full py-8 pt-16">
         <div className="flex px-2 md:px-[11rem] mb-8"><HeaderTab text="Student Voices About Teaching System" /></div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex">
@@ -486,7 +486,7 @@ function ResultUTYCC({ resultData }) {
 
       <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
         <div className="flex px-2 md:px-5 min-w-[500px]">
-          <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
+          <div className="p-0 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
           Number of <br/>
           respondents <br/>
           according to major
@@ -502,7 +502,7 @@ function ResultUTYCC({ resultData }) {
         <div className="p-2 pt-0 text-md text-center font-light">Polarity of Teaching System According to Majors</div>
       </div>
 
-      <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
+      <div className="flex flex-col gap-5 max-w-full py-8 pt-16">
         <div className="flex px-2 md:px-[11rem] mb-8"><HeaderTab text="Suggestions" /></div>
         <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex justify-center">

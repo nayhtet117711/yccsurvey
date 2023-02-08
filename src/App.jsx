@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 import './App.css'
 import Footer from "./components/Footer"
@@ -16,6 +17,17 @@ function App() {
         <Route path="/results/*" element={<Result />} />
       </Routes>
       <Footer />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          zIndex: 999999
+        }}
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
     </div>
   )
 }

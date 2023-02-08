@@ -2,6 +2,7 @@ import { useState, useLayoutEffect } from 'react'
 import { LockClosedIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid'
 import FooterBanner from '../../assets/footer-banner1.svg'
 import { useCookies } from 'react-cookie'
+import toast from 'react-hot-toast'
 
 export const LoginView = ({  }) => {
     const [isPasswordShow, setPasswordShow] = useState(false)
@@ -26,6 +27,8 @@ export const LoginView = ({  }) => {
       const email = e.target.email.value
       const password = e.target.password.value
 
+      const loadingToastId = toast.loading("Loading...")
+
       fetch(`${import.meta.env.VITE_API_URL}/accounts/login`, {
         method: "POST",
         headers: {
@@ -36,13 +39,16 @@ export const LoginView = ({  }) => {
       .then(res => res.json())
       .then(data => {
         if(!data.success) throw new Error(data.message)
+        toast.remove(loadingToastId)
         setCookie('account-details', data, {
           expires: new Date(parseInt(`${data.exp}000`))
         })
+        toast.success("Login success!", { duration: 2000 })
       })
       .catch(error => {
         console.log("catch: ", error)
-        alert(error.message)
+        toast.error(error.message)
+        toast.remove(loadingToastId)
       })
     }
   
@@ -61,7 +67,7 @@ export const LoginView = ({  }) => {
                   Sign in to your account
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
-                  
+                  Or go to <a href="/results" className='text-blue-500 hover:text-blue-600'>Result Page</a>
                 </p>
               </div>
               <form onSubmit={handleSignIn} className="mt-8 space-y-6" method="POST">

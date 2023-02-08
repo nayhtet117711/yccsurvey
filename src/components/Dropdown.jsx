@@ -14,7 +14,7 @@ export const Dropdown = ({ options=[], selected, setSelected }) => {
 
     return (
         <div className="shadow-md shadow-[#99999955] relative min-w-[140px]">
-            <div className="duration-200 ease-in-out cursor-default peer px-0 py-2 tracking-wide text-md rounded-sm flex items-center">
+            <div className="duration-200 ease-in-out cursor-default peer px-0 py-2 tracking-wide text-sm md:text-md rounded-sm flex items-center">
                 <div className="grow px-4 text-center">{ selected || <span className="text-gray-300">None</span> }</div>
                 <div className="w-[40px] flex justify-center text-gray-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -25,7 +25,7 @@ export const Dropdown = ({ options=[], selected, setSelected }) => {
             <div ref={dropdownRef} className="-mt-[1px] bg-white duration-200 ease-in-out shadow hidden absolute left-0 right-0 peer-hover:flex peer-hover:flex-col hover:flex hover:flex-col divide-y-[1px] divide-gray-100 rounded-b-sm">
                 { options.filter(o => o !== selected).map(o => (
                     <div key={o} className="flex cursor-pointer hover:bg-gray-50">
-                        <div onClick={() => onSelect(o)} className="grow text-center py-2 tracking-wide text-md font-light">{o}</div>
+                        <div onClick={() => onSelect(o)} className="grow text-center py-2 tracking-wide text-sm md:text-md font-light">{o}</div>
                         <div className="w-[40px]"></div>
                     </div>
                 ))}
