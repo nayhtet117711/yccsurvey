@@ -62,7 +62,7 @@ export const companyInfo = [
     { id: "total_employee", name: "Number of employee in your company(estimate) " },
     { id: "total_exp", name: "Total Months of Experience" },
     { id: "salary", name: "Monthly salary" },
-    { id: "position", name: "Position" },
+    { id: "position", name: "Select Position", isDropdown: true },
 ]
 
 export const ownBusinessInfo = [
@@ -76,7 +76,18 @@ export const otherOrgInfo = [
     { id: "other_business_rating", name: "How likely is it that you would change your career?" }
 ]
 
+export const positionList = [
+    "Sr Frontend Developer",
+    "Software Developer",
+    "Junior Backend Developer",
+    "Java Developer",
+    "QA Engineer",
+    "Full Stack Developer",
+    "AI Engineer",
+    "Data Analyst",
 
+    
+]
 
 
 

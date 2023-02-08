@@ -7,6 +7,7 @@ import useQueryParam from "../hooks/useQueryParam";
 import { useCookies } from 'react-cookie';
 import RightArrowIcon from '../assets/right-arrow.svg'
 import LoginModal from "./modal/LoginSignupModal";
+import { ExpandedDropdown } from "../components/ExpandedDropdown";
 
 const LabelClassName = `text-md md:text-xl text-gray-900`;
 const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none`;
@@ -120,7 +121,7 @@ const Survey = () => {
       </div>
 
       <form className="w-full lg:max-w-2xl relative" onSubmit={handleSubmit}>
-        <div className="backdrop-blur-sm min-h-[600px] border-r-0 border-b-0 lg:border-r-2 lg:border-b-2 border-l-0 border-t-0 shadow- shadow-gray-200 bg-transparent mx-0 lg:mx-28 divide-y divide-gray-200 z-10 mb-4">
+        <div className="backdrop-blur-sm min-h-[600px] border-r-0 border-b-0 lg:border-r-2 lg:border-b-2 border-l-0 border-t-0 shadow- shadow-gray-200 bg-transparent mx-0 lg:mx-6 divide-y divide-gray-200 z-10 mb-4">
           {page === "1" && <>
             <div className="p-4">
               <label htmlFor="name" className={LabelClassName}>1. What is your name? *</label>
@@ -339,7 +340,22 @@ const Survey = () => {
                     <fieldset className="mt-2">
                       <legend className="sr-only">Working Organization</legend>
                       <div className="flex flex-col justify-center space-y-1">
-                        {companyInfo.map((vv, kk, a) => (
+                        {companyInfo.map((vv, kk, a) => 
+                          vv.isDropdown 
+                            ? (
+                                <ExpandedDropdown
+                                  key={kk}
+                                  id={kk}
+                                  name="working_organization_info"
+                                  type="text"
+                                  required
+                                  value={working_organization_info[vv.id] || ""}
+                                  onChange={v => handleChange("working_organization_info", { ...working_organization_info, [vv.id]: v })}
+                                  className={TextAreaClassName}
+                                  placeholder={vv.name}
+                                />
+                              )
+                            : (
                               <input
                                 key={kk}
                                 id={kk}
@@ -351,10 +367,67 @@ const Survey = () => {
                                 className={TextAreaClassName}
                                 placeholder={vv.name}
                               />
-                            ))
+                            )
+                          )
                         }
                       </div>
                     </fieldset>
+                    <div className="">
+                      <div className="p-4">
+                        <label htmlFor="current_job_rating" className={LabelClassName}>How satisfied are you with your current job?</label>
+                        <fieldset className="mt-4">
+                          <legend className="sr-only">Current Job Rating</legend>
+                          <div className="space-y-0 flex items-center space-x-0">
+                            <div className="text-xl text-gray-400 pl-8">lowest</div>
+                            {rating.map((v) => (
+                              <div key={v.id} className="flex items-center">
+                                <input
+                                  id={v.id}
+                                  name="current_job_rating"
+                                  type="radio"
+                                  value={v.id}
+                                  checked={v.id === current_job_rating}
+                                  onChange={e => handleChange("current_job_rating", e.currentTarget.value)}
+                                  className={RadioClassName}
+                                />
+                                <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
+                                  {v.name}
+                                </label>
+                              </div>
+                            ))}
+                            <div className="text-xl text-gray-400 pl-8">highest</div>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <div className="p-4">
+                        <label htmlFor="job_related_degree_rating" className={LabelClassName}>How closely related is your current job to your degree major?</label>
+                        <fieldset className="mt-4">
+                          <legend className="sr-only">Job Related Degree Rating</legend>
+                          <div className="space-y-0 flex items-center space-x-0">
+                            <div className="text-xl text-gray-400 pl-8">lowest</div>
+                            {rating.map((v) => (
+                              <div key={v.id} className="flex items-center">
+                                <input
+                                  id={v.id}
+                                  name="job_related_degree_rating"
+                                  type="radio"
+                                  value={v.id}
+                                  checked={v.id === job_related_degree_rating}
+                                  onChange={e => handleChange("job_related_degree_rating", e.currentTarget.value)}
+                                  className={RadioClassName}
+                                />
+                                <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
+                                  {v.name}
+                                </label>
+                              </div>
+                            ))}
+                            <div className="text-xl text-gray-400 pl-8">highest</div>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                    </div>
                   </div>
                 }
               </fieldset>
@@ -363,62 +436,8 @@ const Survey = () => {
 
           {page === "3" && <>
             <div className="p-4">
-              <label htmlFor="current_job_rating" className={LabelClassName}>8. How satisfied are you with your current job?</label>
-              <fieldset className="mt-4">
-                <legend className="sr-only">Current Job Rating</legend>
-                <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-xl text-gray-400 pl-8">lowest</div>
-                  {rating.map((v) => (
-                    <div key={v.id} className="flex items-center">
-                      <input
-                        id={v.id}
-                        name="current_job_rating"
-                        type="radio"
-                        value={v.id}
-                        checked={v.id === current_job_rating}
-                        onChange={e => handleChange("current_job_rating", e.currentTarget.value)}
-                        className={RadioClassName}
-                      />
-                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
-                        {v.name}
-                      </label>
-                    </div>
-                  ))}
-                  <div className="text-xl text-gray-400 pl-8">highest</div>
-                </div>
-              </fieldset>
-            </div>
-
-            <div className="p-4">
-              <label htmlFor="job_related_degree_rating" className={LabelClassName}>9. How closely related is your current job to your degree major?</label>
-              <fieldset className="mt-4">
-                <legend className="sr-only">Job Related Degree Rating</legend>
-                <div className="space-y-0 flex items-center space-x-0">
-                  <div className="text-xl text-gray-400 pl-8">lowest</div>
-                  {rating.map((v) => (
-                    <div key={v.id} className="flex items-center">
-                      <input
-                        id={v.id}
-                        name="job_related_degree_rating"
-                        type="radio"
-                        value={v.id}
-                        checked={v.id === job_related_degree_rating}
-                        onChange={e => handleChange("job_related_degree_rating", e.currentTarget.value)}
-                        className={RadioClassName}
-                      />
-                      <label htmlFor={v.id} className="text-xl text-gray-400 hidden">
-                        {v.name}
-                      </label>
-                    </div>
-                  ))}
-                  <div className="text-xl text-gray-400 pl-8">highest</div>
-                </div>
-              </fieldset>
-            </div>
-
-            <div className="p-4">
               <label htmlFor="degree_coverage_career_rating" className={LabelClassName}>
-                10. The program studied in your university coverage in your professional life.
+                8. The program studied in your university coverage in your professional life.
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Degree Coverage Career Rating</legend>
@@ -447,7 +466,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="activites_coverage_career_rating" className={LabelClassName}>
-                11. How useful were the activities (projects, mini-thesis, field trip) in helping you with your current job?
+                9. How useful were the activities (projects, mini-thesis, field trip) in helping you with your current job?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Activites Coverage Career Rating</legend>
@@ -476,7 +495,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="is_internship_helpful" className={LabelClassName}>
-                12. Did the internship give a valuable experience to fulfill the basic requirement of the job?
+                10. Did the internship give a valuable experience to fulfill the basic requirement of the job?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Is Internship Helpful?</legend>
@@ -504,7 +523,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="is_degree_important" className={LabelClassName}>
-                13. Do you think that the degree of UTYCC is an important factor to increase employability?
+                11. Do you think that the degree of UTYCC is an important factor to increase employability?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Is Degree Important?</legend>
@@ -532,7 +551,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="ict_dept_rating" className={LabelClassName}>
-                14. Based on your experience as a student, rate the performance of the Major Department
+                12. Based on your experience as a student, rate the performance of the Major Department
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">Major Department Rating</legend>
@@ -561,7 +580,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="utycc_facilities_rating" className={LabelClassName}>
-                15. How good do you think about the facilities UTYCC provides?
+                13. How good do you think about the facilities UTYCC provides?
               </label>
               <fieldset className="mt-4">
                 <legend className="sr-only">UTYCC Facilities Rating</legend>
@@ -590,7 +609,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="thoughts" className={LabelClassName}>
-                16. What are your thoughts of the teaching system of UTYCC?
+                14. What are your thoughts of the teaching system of UTYCC?
               </label>
               <textarea
                 name="thoughts"
@@ -605,7 +624,7 @@ const Survey = () => {
 
             <div className="p-4">
               <label htmlFor="thoughts" className={LabelClassName}>
-                17. Please give suggestions to improve our University.
+                15. Please give suggestions to improve our University.
               </label>
               <textarea
                 name="suggestions"
