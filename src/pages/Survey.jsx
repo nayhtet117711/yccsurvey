@@ -1,18 +1,20 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { companyInfo, degree_levels, genders, graduated_years, majors, organizations, rating, yes_or_no } from "../../constants";
+import { companyInfo, degree_levels, graduated_years, majors, rating, yes_or_no } from "../../constants";
 import Img5 from "../assets/img5.svg"
 import Img6 from "../assets/img6.svg"
 import useQueryParam from "../hooks/useQueryParam";
 import { useCookies } from 'react-cookie';
+import RightArrowIcon from '../assets/right-arrow.svg'
+import LoginModal from "./modal/LoginSignupModal";
 
-const LabelClassName = `text-xl text-gray-900`;
+const LabelClassName = `text-md md:text-xl text-gray-900`;
 const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-8 rounded-2xl outline-none border border-violet-600 shadow-md shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none`;
 const RadioClassName = `cursor-pointer h-5 w-5 ml-8 appearance-none border-2 border-gray-300 checked:bg-violet-600 rounded-full`
 const TextAreaClassName = `block w-full max-w-xs py-2 px-4 ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none bg-transparent`;
 
 const Survey = () => {
-  const [cookies, setCookie] = useCookies(['survey-data']);
+  const [cookies, setCookie] = useCookies(['survey-data', 'account-details']);
 
   const [surveyData, setSurveyData] = useState(cookies["survey-data"] || {});
   const {
@@ -84,7 +86,6 @@ const Survey = () => {
       return navigate({ pathname: "/survey", search: `?page=${+page + 1}` })
     }
     // Going to submit
-    console.log("surveyData: ", surveyData)
     fetch(`${import.meta.env.VITE_API_URL}/surveys`, {
       method: "POST",
       headers: {
@@ -101,10 +102,25 @@ const Survey = () => {
     .catch(error => console.log("catch: ", error))
   }
 
+  if(cookies["account-details"]?.survey_taken == 1)
+    return (
+      <div className="grow relative flex flex-col gap-3 justify-start mx-8 pl-2">
+        <h3 className="text-2xl font-bold text-gray-800">You have already taken the survey</h3>
+        <p className="text-gray-500">Please check the <a href="/results" className="text-blue-500">Result</a> page.</p>
+      </div>
+    )
+
   return (
-    <div className="grow relative flex justify-center mx-8">
-      <form className="w-full lg:max-w-2xl" onSubmit={handleSubmit}>
-        <div className="min-h-[600px] border-r-2 border-b-2 border-l-0 border-t-0 shadow- shadow-gray-200 bg-transparent px-28 divide-y divide-gray-200 z-10 mb-4">
+    <div className="grow relative flex justify-center mx:2 md:mx-8">
+      <div className="absolute p-5 left-0 opacity-40 lg:opacity-80">
+        <img src={Img5} className="object-contain w-full md:min-w-[25rem]" />
+      </div>
+      <div className="absolute p-5 right-10 bottom-10 opacity-40 lg:opacity-80">
+        <img src={Img6} className="object-contain w-full md:min-w-[25rem]" />
+      </div>
+
+      <form className="w-full lg:max-w-2xl relative" onSubmit={handleSubmit}>
+        <div className="backdrop-blur-sm min-h-[600px] border-r-0 border-b-0 lg:border-r-2 lg:border-b-2 border-l-0 border-t-0 shadow- shadow-gray-200 bg-transparent mx-0 lg:mx-28 divide-y divide-gray-200 z-10 mb-4">
           {page === "1" && <>
             <div className="p-4">
               <label htmlFor="name" className={LabelClassName}>1. What is your name? *</label>
@@ -137,7 +153,7 @@ const Survey = () => {
                         onChange={e => handleChange("graduated_year", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -163,7 +179,7 @@ const Survey = () => {
                         onChange={e => handleChange("degree_level", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -189,7 +205,7 @@ const Survey = () => {
                         onChange={e => handleChange("major", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -217,7 +233,7 @@ const Survey = () => {
                         onChange={e => handleChange("has_other_degree", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -257,7 +273,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_current_college", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -311,7 +327,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_current_working", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -477,7 +493,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_internship_helpful", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -505,7 +521,7 @@ const Survey = () => {
                         onChange={e => handleChange("is_degree_important", e.currentTarget.value)}
                         className={RadioClassName}
                       />
-                      <label htmlFor={v.id} className="ml-3 block text-xl text-gray-400">
+                      <label htmlFor={v.id} className="ml-3 block text-md md:text-xl text-gray-400">
                         {v.name}
                       </label>
                     </div>
@@ -605,9 +621,9 @@ const Survey = () => {
         </div>
 
         <div className="flex justify-end mr-10">
-          <button
+        <button
             type="submit"
-            className="inline-flex space-x-2 items-center rounded-md border border-transparent bg-gradient-to-r from-violet-600 to-indigo-600 px-10 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className='flex justify-center items-center gap-3 w-[16rem] text-white py-3 ring-1 ring-white rounded-xl bg-gradient-to-r from-[#964DEF] to-[#6C48FC] duration-150 shadow hover:shadow-lg active:ring-[#6C48FC] active:ring-2'
           >
             {
               page === "3"
@@ -615,10 +631,7 @@ const Survey = () => {
                 : (
                   <>
                     <span>Next</span>
-                    <svg width="16" height="10" viewBox="0 0 22 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M11.4408 0.420908C11.5631 0.336512 11.7083 0.269553 11.8682 0.223866C12.0281 0.178179 12.1995 0.154663 12.3726 0.154663C12.5457 0.154663 12.7171 0.178179 12.877 0.223866C13.0369 0.269553 13.1821 0.336512 13.3043 0.420908L21.2006 5.85841C21.3231 5.94259 21.4204 6.0426 21.4867 6.1527C21.5531 6.2628 21.5872 6.38083 21.5872 6.50003C21.5872 6.61924 21.5531 6.73727 21.4867 6.84737C21.4204 6.95747 21.3231 7.05747 21.2006 7.14166L13.3043 12.5792C13.0572 12.7493 12.7221 12.8449 12.3726 12.8449C12.0231 12.8449 11.688 12.7493 11.4408 12.5792C11.1937 12.409 11.0549 12.1782 11.0549 11.9375C11.0549 11.6969 11.1937 11.4661 11.4408 11.2959L18.4079 6.50003L11.4408 1.70416C11.3183 1.61997 11.221 1.51997 11.1547 1.40987C11.0884 1.29977 11.0542 1.18174 11.0542 1.06253C11.0542 0.943329 11.0884 0.825297 11.1547 0.715197C11.221 0.605096 11.3183 0.50509 11.4408 0.420908Z" fill="white" />
-                      <path fillRule="evenodd" clipRule="evenodd" d="M0.52832 6.5C0.52832 6.25965 0.666974 6.02914 0.913779 5.85918C1.16058 5.68923 1.49532 5.59375 1.84436 5.59375H18.9528C19.3019 5.59375 19.6366 5.68923 19.8834 5.85918C20.1302 6.02914 20.2689 6.25965 20.2689 6.5C20.2689 6.74035 20.1302 6.97086 19.8834 7.14082C19.6366 7.31077 19.3019 7.40625 18.9528 7.40625H1.84436C1.49532 7.40625 1.16058 7.31077 0.913779 7.14082C0.666974 6.97086 0.52832 6.74035 0.52832 6.5Z" fill="white" />
-                    </svg>
+                    <img src={RightArrowIcon} alt="right-arrow"></img>
                   </>
                 )
             }
@@ -626,13 +639,7 @@ const Survey = () => {
         </div>
       </form>
 
-      <div className="absolute p-5 left-0">
-        <img src={Img5} className="object-contain w-full md:min-w-[25rem]" />
-      </div>
-      <div className="absolute p-5 right-10 bottom-10 -z-10">
-        <img src={Img6} className="object-contain w-full md:min-w-[25rem]" />
-      </div>
-
+      <LoginModal />
     </div>
   )
 }

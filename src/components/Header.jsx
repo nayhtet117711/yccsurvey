@@ -5,27 +5,33 @@ import RightArrowIcon from '../assets/right-arrow.svg'
 import { useNavigator } from '../utils'
 import { useLocation } from 'react-router-dom';
 import useQueryParam from '../hooks/useQueryParam'
+import { useCookies } from 'react-cookie'
+import { UserCircleIcon } from '@heroicons/react/20/solid'
 
 function Header() {
   const { navigateHome, navigateSurvey, navigateResult } = useNavigator();
   const location = useLocation();
   const [query] = useQueryParam();
+  const [cookies, setCookie] = useCookies(['survey-data', 'account-details']);
 
   return (
     <div className="relative w-full">
       {location.pathname === "/"
         ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-0.5" />
-        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full pt-0.5" />
+        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full mt-10 -lg:mt-10 opacity-0 lg:opacity-100" />
       }
       <section className='absolute top-0 left-0 right-0 bottom-0 flex-col z-[100]'>
         <header className='fixed z-[100] top-0 left-0 right-0 pl-2 pr-2 md:pl-[6rem] md:pr-[6rem] flex bg-gradient-to-r from-[#3544FF] to-[#8B4CF1] py-6 px-14'>
           <div className='flex grow'>
             <a href='/' className='text-white font-semibold text-2xl'>UT-YCC</a>
           </div>
-          <div className='flex gap-6'>
-            <div onClick={navigateHome} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/" ? 'underline' : ''}`}>Home</div>
-            <div onClick={navigateSurvey} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>
-            <div onClick={navigateResult} className={`text-md md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname.includes("/results") ? 'underline' : ''}`}>Results</div>
+          <div className='flex gap-4 md:gap-6'>
+            <div onClick={navigateHome} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/" ? 'underline' : ''}`}>Home</div>
+            <div onClick={navigateSurvey} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>
+            <div onClick={navigateResult} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname.includes("/results") ? 'underline' : ''}`}>Results</div>
+            {!!cookies["account-details"] && <div className='flex justify-center items-center relative'>
+              <UserCircleIcon color='white' className='w-6 h-6' title={cookies["account-details"]?.email}/>
+            </div>}
           </div>
         </header>
         {location.pathname === "/"
@@ -52,7 +58,7 @@ const HomeHeader = () => {
       <section className='hidden md:block absolute z-[0] right-[10%] lg:right-[11%] xl:right-[12%] bottom-[4rem] lg:bottom-[6rem] xl:bottom-[8rem]'>
         <img alt="header-img" src={HeaderImg} className="w-[18rem] lg:w-[23rem] xl:w-[32rem]" />
       </section>
-      <section className='absolute left-[10%] lg:left-[10%] xl:left-[14%] 2xl:left-[18%] bottom-[0rem] lg:bottom-[2rem] xl:bottom-[3rem] 2xl:bottom-[5rem]'>
+      <section className='hidden md:block absolute left-[10%] lg:left-[10%] xl:left-[14%] 2xl:left-[18%] -bottom-[2rem] lg:bottom-[2rem] xl:bottom-[3rem] 2xl:bottom-[5rem]'>
         <button onClick={navigateSurvey} className='flex justify-center items-center gap-3 w-[16rem] text-white py-3 ring-1 ring-white rounded-xl bg-gradient-to-r from-[#964DEF] to-[#6C48FC] duration-150 shadow hover:shadow-lg active:ring-[#6C48FC] active:ring-2'>Take Survey <img src={RightArrowIcon} alt="right-arrow"></img></button>
       </section>
     </>
@@ -84,7 +90,7 @@ const HEADER_CONTENT = {
 
 const PageHeader = ({ page }) => {
   return (
-    <section className="absolute right-[8%] mt-5 text-white text-center w-[18rem] lg:w-[30rem] p-2">
+    <section className="hidden lg:block absolute right-[8%] text-white text-center w-[18rem] lg:w-[30rem] p-2 mt-[6rem]">
       <h1 className='text-3xl'>{HEADER_CONTENT[`page${page}`]?.title || ""}</h1>
       {
         HEADER_CONTENT[`page${page}`]?.desc.map((v, k) => (

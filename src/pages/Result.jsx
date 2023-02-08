@@ -65,7 +65,7 @@ function Result() {
 
   return (
     <div className="grow">
-      <div className="px-[11rem] relative">
+      <div className="px-2 md:px-[11rem] relative">
         <ResultTab />
       </div>
       <Routes>
@@ -92,8 +92,8 @@ function ResultOverview({ resultData }) {
 
   return (
     <div className="flex flex-col gap-10 py-10">
-      <div className="">
-        <div className="flex gap-5 px-[11rem]">
+      <div className="relative overflow-x-auto">
+        <div className="flex gap-5 md:px-[11rem] min-w-[700px]">
           <div className="flex-[2]">
             <PieChart 
               series={overview_avgsalary_summary_pie}
@@ -103,7 +103,7 @@ function ResultOverview({ resultData }) {
           </div>
           <div className="flex-[4]">
             <div className="flex px-5">
-              <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+              <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light -rotate-90 lg:rotate-0">
               MMK
               </div>
               <div className="flex-[4]">
@@ -116,17 +116,18 @@ function ResultOverview({ resultData }) {
             </div>
           </div>
         </div>
-        <div className="p-2 pt-0 text-md text-center font-light">Total respondents and their average salary range</div>
       </div>
+      <div className="p-2 pt-0 text-md text-center font-light">Total respondents and their average salary range</div>
+
       <div className="overflow-hidden w-screen">
-        <div className="p-3 pr-[40%]">
+        <div className="p-3 pr-[10%] md:pr-[40%]">
           <QuoteText 
             text={`${receivedAnotherDegreePercent}% of respondents received another degree and ${currentlyPursuingHigherEducationPercent}% is currently pursuing higher education.`}
             className="-ml-6"
             left
           />
         </div>
-        <div className="p-3 pl-[40%]">
+        <div className="p-3 pl[10%] md:pl-[40%]">
           <QuoteText 
             text={`Based on respondents, ${workingPercent}% is currently working in a company. `}
             className="-mr-6"
@@ -134,10 +135,10 @@ function ResultOverview({ resultData }) {
           />
         </div>
       </div>
-      <div className="flex gap-5 justify-center">
-        <div className="min-w-[50%]">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+      <div className="gap-5 justify-center">
+        <div className="min-w-[50%] overflow-x-auto">
+          <div className="flex px-0 md:px-5 min-w-[500px]">
+            <div className="p-0 md:p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 lg:rotate-0">
             Alumni working <br/>
             in Companies
             </div>
@@ -149,8 +150,8 @@ function ResultOverview({ resultData }) {
               />
             </div>
           </div>
-          <div className="p-2 pt-0 text-md text-center font-light">Alumni Ratings for Their Current Jobs</div>
         </div>
+        <div className="p-2 pt-0 text-md text-center font-light">Alumni Ratings for Their Current Jobs</div>
       </div>
     </div>
   )
@@ -194,7 +195,7 @@ function ResultCareer({ resultData }) {
   ))
 
   return (
-    <div className="py-10 px-[11rem]">
+    <div className="py-10 px-2 md:px-[11rem]">
       <div className="flex gap-6 py-6">
         <Dropdown  
           selected={majorSelected}
@@ -207,10 +208,12 @@ function ResultCareer({ resultData }) {
           options={sortOptions}
         />
       </div>
-      <div className="flex flex-col divide-y-[1px] divide-gray-200">
-        <JobCareerHeaderRow />
-        { rowDataView }
-        { rowDataView.length === 0 && <div className="font-light text-center p-8 text-gray-400">No Data available!</div>}
+      <div className="overflow-x-auto">
+        <div className="flex flex-col divide-y-[1px] divide-gray-200 min-w-[600px]">
+          <JobCareerHeaderRow />
+          { rowDataView }
+          { rowDataView.length === 0 && <div className="font-light text-center p-8 text-gray-400">No Data available!</div>}
+        </div>
       </div>
     </div>
   )
@@ -285,12 +288,11 @@ function ResultUTYCC({ resultData }) {
 
   return (
     <div className="py-10 flex flex-col divide-y-[1px] divide-gray-200">
-
       <div className="flex flex-col gap-5 max-w-screen py-8">
-        <div className="flex px-[11rem]"><HeaderTab text="Overall Ratings" /></div>
-        <div className="px-[11rem] py-4">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Overall Ratings" /></div>
+        <div className="px-2 md:px-[11rem] py-4 overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[500px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents
             </div>
@@ -307,10 +309,10 @@ function ResultUTYCC({ resultData }) {
       </div>
 
       <div className="flex flex-col gap-5 max-w-screen py-8">
-        <div className="flex px-[11rem]"><HeaderTab text="Ratings Accoding to Major" /></div>
-        <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Ratings Accoding to Major" /></div>
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[500px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -325,9 +327,10 @@ function ResultUTYCC({ resultData }) {
           </div>
           <div className="p-2 pt-0 text-md text-center font-light">Program Coverage</div>
         </div>
-        <div className="flex-[4] px-[11rem] py-4">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[500px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -342,9 +345,9 @@ function ResultUTYCC({ resultData }) {
           </div>
           <div className="p-2 pt-0 text-md text-center font-light">Activities Usefulness</div>
         </div>
-        <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[500px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -359,9 +362,9 @@ function ResultUTYCC({ resultData }) {
           </div>
           <div className="p-2 pt-0 text-md text-center font-light">Department Ratings</div>
         </div>
-        <div className="flex-[4] px-[11rem] py-4">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex-[4] px-2 mdpx-[11rem] py-4 overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[500px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -379,10 +382,10 @@ function ResultUTYCC({ resultData }) {
       </div>
 
       <div className="flex flex-col gap-5 max-w-screen pt-8">
-        <div className="flex px-[11rem]"><HeaderTab text="Internship Experience" /></div>
-        <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Internship Experience" /></div>
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[600px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -395,7 +398,7 @@ function ResultUTYCC({ resultData }) {
               />
             </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end min-w-[500px]">
             <div className="flex-1">
               <PieChart 
                 series={utycc_intershipquestion_summary_pie}
@@ -416,10 +419,10 @@ function ResultUTYCC({ resultData }) {
       </div>
 
       <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
-        <div className="flex px-[11rem]"><HeaderTab text="Impact of YCC Degree" /></div>
-        <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
-          <div className="flex px-5">
-            <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+        <div className="flex px-2 md:px-[11rem]"><HeaderTab text="Impact of YCC Degree" /></div>
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
+          <div className="flex px-2 md:px-5 min-w-[600px]">
+            <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
             Number of <br/>
             respondents <br/>
             according to major
@@ -432,13 +435,13 @@ function ResultUTYCC({ resultData }) {
               />
             </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end min-w-[600px]">
             <QuoteText 
               text={`More than ${degree_yes_percent}% of students think that degree of UTYCC is an important factor in getting employed.`}
               className="flex-1"
               left={false}
             />
-            <div className="flex-1">
+            <div className="">
               <PieChart 
                 series={utycc_degreequestion_summary_pie}
                 labels={['Yes', 'No']}
@@ -453,37 +456,37 @@ function ResultUTYCC({ resultData }) {
       </div>
 
       <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
-        <div className="flex px-[11rem] mb-8"><HeaderTab text="Student Voices About Teaching System" /></div>
-        <div className="flex-[4] px-[11rem] py-4">
+        <div className="flex px-2 md:px-[11rem] mb-8"><HeaderTab text="Student Voices About Teaching System" /></div>
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex">
             <WordCloud className="flex-1" data={utycc_thought_polarity_positive} />
             <div className="flex-1 flex justify-start items-center p-5">
-              <div className="text-xl italic tracking-wide font-light">Positive</div>
+              <div className="text-sm md:text-xl italic tracking-wide font-light rotate-90 md:rotate-0">Positive</div>
             </div>
           </div>
         </div>
-        <div className="flex-[4] px-[11rem] py-4">
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex">
             <div className="flex-1 flex justify-end items-center p-5">
-              <div className="text-xl italic tracking-wide font-light">Neutral</div>
+              <div className="text-sm md:text-xl italic tracking-wide font-light -rotate-90 md:rotate-0">Neutral</div>
             </div>
             <WordCloud className="flex-1" data={utycc_thought_polarity_neutral} />
           </div>
         </div>
-        <div className="flex-[4] px-[11rem] py-4">
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex">
             <WordCloud className="flex-1" data={utycc_thought_polarity_negative} />
             <div className="flex-1 flex justify-start items-center p-5">
-              <div className="text-xl italic tracking-wide font-light">Negative</div>
+              <div className="text-xl italic tracking-wide font-light rotate-90 md:rotate-0">Negative</div>
             </div>
           </div>
         </div>
         <div className="p-2 font-light text-center -m-3">Comments about Teaching System</div>
       </div>
 
-      <div className="flex-[4] px-[11rem] py-4 bg-[#9F91F520]">
-        <div className="flex px-5">
-          <div className="p-3 flex flex-col justify-center text-md text-center whitespace-nowrap font-light">
+      <div className="flex-[4] px-2 md:px-[11rem] py-4 bg-[#9F91F520] overflow-x-auto">
+        <div className="flex px-2 md:px-5 min-w-[500px]">
+          <div className="p-3 flex flex-col justify-center text-sm md:text-md text-center whitespace-nowrap font-light -rotate-90 md:rotate-0">
           Number of <br/>
           respondents <br/>
           according to major
@@ -500,8 +503,8 @@ function ResultUTYCC({ resultData }) {
       </div>
 
       <div className="flex flex-col gap-5 max-w-screen py-8 pt-16">
-        <div className="flex px-[11rem] mb-8"><HeaderTab text="Suggestions" /></div>
-        <div className="flex-[4] px-[11rem] py-4">
+        <div className="flex px-2 md:px-[11rem] mb-8"><HeaderTab text="Suggestions" /></div>
+        <div className="flex-[4] px-2 md:px-[11rem] py-4 overflow-x-auto">
           <div className="flex justify-center">
             <div className="flex-1"></div>
             <WordCloud className="flex-[2]" data={utycc_suggestion_words} />

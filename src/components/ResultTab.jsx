@@ -22,7 +22,7 @@ export const ResultTab = () => {
     const selected = currentType || "overview" // overview | career | utycc
 
     return (
-        <div className="max-w-[50%] min-w-[400px] flex gap-2 shadow-lg sticky top-0 left-0">
+        <div className="max-w-[50%] min-w-[360px] md:min-w-[400px] flex gap-2 shadow-lg sticky top-0 left-0">
             <ResultTabItem 
                 type="overview" 
                 title="Overview" 
