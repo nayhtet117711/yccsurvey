@@ -441,7 +441,7 @@ function ResultUTYCC({ resultData }) {
               className="flex-1"
               left={false}
             />
-            <div className="">
+            <div className="flex-1">
               <PieChart 
                 series={utycc_degreequestion_summary_pie}
                 labels={['Yes', 'No']}
