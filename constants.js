@@ -31,6 +31,11 @@ export const yes_or_no = [
     { id: "no", name: "No" }
 ]
 
+export const compan_or_other_business = [
+    { id: "no", name: "Company" },
+    { id: "yes", name: "Other Business" }
+]
+
 export const organizations = [
     { id: "Government Staff", name: "Government Staff" },
     { id: "Company", name: "Company" },

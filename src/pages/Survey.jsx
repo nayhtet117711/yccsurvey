@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { companyInfo, degree_levels, graduated_years, majors, rating, yes_or_no } from "../../constants";
+import { companyInfo, compan_or_other_business, degree_levels, graduated_years, majors, rating, yes_or_no } from "../../constants";
 import Img5 from "../assets/img5.svg"
 import Img6 from "../assets/img6.svg"
 import useQueryParam from "../hooks/useQueryParam";
@@ -378,7 +378,7 @@ const RenderPage2 = ({ jobPositionList, surveyData, handleChange }) => {
                 <legend className="sr-only">Is Current Working?</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
                   <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
-                    {yes_or_no.map((v) => (
+                    {compan_or_other_business.map((v) => (
                       <div key={v.id} className="flex items-center">
                         <input
                           id={"is_own_business"+v.id}
