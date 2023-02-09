@@ -400,7 +400,7 @@ const RenderPage2 = ({ jobPositionList, surveyData, handleChange }) => {
               </fieldset>
           </div>
           )}
-          {is_own_business === "yes" &&
+          {is_own_business === "no" &&
             <div className="p-4">
               <label htmlFor="working_organization" className={LabelClassName}>Please fill the following: *</label>
               <fieldset className="mt-2">
