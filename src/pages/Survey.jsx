@@ -15,7 +15,7 @@ const InputClassName = `block w-full max-w-xs py-2 px-4 my-4 ml-4 md:ml-8 rounde
 const RadioClassName = `cursor-pointer h-5 w-5 ml-2 md:ml-8 appearance-none border-2 border-gray-300 checked:bg-violet-600 rounded-full`
 const TextAreaClassName = `block w-full max-w-xs py-2 mt-2 px-4 ml-4 md:ml-8 outline-none border-b border-violet-600 border-0 shadow-xs shadow-violet-700 focus:border-violet-700 focus:ring-violet-500 sm:text-xl appearance-none bg-transparent`;
 
-const Survey = () => {
+const Survey = ({ jobPositionList }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['survey-data', 'account-details']);
 
   const [surveyData, setSurveyData] = useState(cookies["survey-data"] || {});
@@ -106,7 +106,7 @@ const Survey = () => {
         <div className="backdrop-blur-md min-h-[600px] border-r-0 border-b-0 lg:border-r-2 lg:border-b-2 border-l-0 border-t-0 shadow- shadow-gray-200 bg-transparent mx-0 lg:mx-6 divide-y divide-gray-200 z-10 mb-4">
           {page === "1" && <RenderPage1 surveyData={surveyData} handleChange={handleChange} />}
 
-          {page === "2" && <RenderPage2 surveyData={surveyData} handleChange={handleChange} />}
+          {page === "2" && <RenderPage2 surveyData={surveyData} handleChange={handleChange} jobPositionList={jobPositionList} />}
 
           {page === "3" && <RenderPage3 surveyData={surveyData} handleChange={handleChange} />}
         </div>
@@ -240,7 +240,7 @@ const RenderPage1 = ({ surveyData, handleChange }) => {
   )
 }
 
-const RenderPage2 = ({ surveyData, handleChange }) => {
+const RenderPage2 = ({ jobPositionList, surveyData, handleChange }) => {
   const {
     has_other_degree = "",
     other_degree = "",
@@ -419,6 +419,7 @@ const RenderPage2 = ({ surveyData, handleChange }) => {
                           onChange={v => handleChange("working_organization_info", { ...working_organization_info, [vv.id]: v })}
                           className={TextAreaClassName}
                           placeholder={vv.name}
+                          jobPositionList={jobPositionList}
                         />
                       )
                       : (

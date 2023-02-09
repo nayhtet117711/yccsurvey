@@ -1,13 +1,12 @@
 import { CircleStackIcon, MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/20/solid"
 import { useMemo } from "react"
 import { useState } from "react"
-import { positionList } from "../../constants"
 
-export const ExpandedDropdown = ({value, onChange, placeholder}) => {
+export const ExpandedDropdown = ({jobPositionList, value, onChange, placeholder}) => {
     const [searchText, setSearchText] = useState("")
 
     const itemsView = useMemo(() => {
-        return positionList
+        return jobPositionList
             .filter(pName => !searchText.trim() || pName.toLowerCase().includes(searchText.toLowerCase()))
             .map((pName, i) => (
             <div 
@@ -21,7 +20,7 @@ export const ExpandedDropdown = ({value, onChange, placeholder}) => {
                 {pName}
             </div>
         ))
-    }, [value, searchText, onChange])
+    }, [value, searchText, onChange, jobPositionList])
     
     return (
         <div className="pt-3 pl-4 md:pl-8">
