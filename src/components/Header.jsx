@@ -32,7 +32,7 @@ function Header() {
           <div className='flex gap-3 md:gap-6 items-center'>
             <div onClick={navigateHome} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/" ? 'underline' : ''}`}>Home</div>
             {!isAdmin && <div onClick={navigateSurvey} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>}
-            {isAdmin && <div onClick={navigateAdmin} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/admins" ? 'underline' : ''}`}>Admin</div>}
+            {!!isAdmin && <div onClick={navigateAdmin} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/admins" ? 'underline' : ''}`}>Admin</div>}
             <div onClick={navigateResult} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname.includes("/results") ? 'underline' : ''}`}>Results</div>
             {!!accountDetail && <div className='flex justify-center relative'>
               <UserCircleIcon 
