@@ -2,27 +2,27 @@ import HomeHeaderBanner from '../assets/home-banner-bg1.svg'
 import OtherHeaderBanner from '../assets/survey-banner-bg1.svg'
 import HeaderImg from '../assets/header-img1.svg'
 import RightArrowIcon from '../assets/right-arrow.svg'
-import { useNavigator } from '../utils'
+import { useAccountDetial, useNavigator } from '../utils'
 import { useLocation } from 'react-router-dom';
 import useQueryParam from '../hooks/useQueryParam'
-import { useCookies } from 'react-cookie'
 import { ArrowRightOnRectangleIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 
 function Header() {
-  const { navigateHome, navigateSurvey, navigateResult } = useNavigator();
+  const { navigateHome, navigateSurvey, navigateResult, navigateAdmin } = useNavigator();
   const location = useLocation();
   const [query] = useQueryParam();
-  const [cookies, _, removeCookie] = useCookies(['survey-data', 'account-details']);
   const [isShowLogoutModal, setShowLogoutModal] = useState(false)
-  const accountDetail = cookies["account-details"]
+  const { isAdmin, accountDetail, logout } = useAccountDetial()
 
   return (
     <div className="relative w-full">
       {location.pathname === "/"
         ? <img alt="header-banner" src={HomeHeaderBanner} className="w-full pt-0.5" />
-        : <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full mt-10 -lg:mt-10 opacity-0 md:opacity-100" />
+        : !isAdmin 
+        ? <img alt="header-banner-other" src={OtherHeaderBanner} className="w-full mt-10 -lg:mt-10 opacity-0 md:opacity-100" />
+        : <div className='mt-20'></div>
       }
       <section className='absolute top-0 left-0 right-0 bottom-0 flex-col'>
         <header className='fixed z-[100] top-0 left-0 right-0 pl-2 pr-2 md:pl-[6rem] md:pr-[6rem] flex bg-gradient-to-r from-[#3544FF] to-[#8B4CF1] py-6 px-14'>
@@ -31,7 +31,8 @@ function Header() {
           </div>
           <div className='flex gap-3 md:gap-6 items-center'>
             <div onClick={navigateHome} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/" ? 'underline' : ''}`}>Home</div>
-            <div onClick={navigateSurvey} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>
+            {!isAdmin && <div onClick={navigateSurvey} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/survey" ? 'underline' : ''}`}>Survey</div>}
+            {isAdmin && <div onClick={navigateAdmin} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname === "/admins" ? 'underline' : ''}`}>Admin</div>}
             <div onClick={navigateResult} className={`text-sm md:text-lg text-white cursor-pointer underline-offset-4 duration-100 ease-in-out origin-center hover:underline ${location.pathname.includes("/results") ? 'underline' : ''}`}>Results</div>
             {!!accountDetail && <div className='flex justify-center relative'>
               <UserCircleIcon 
@@ -75,8 +76,8 @@ function Header() {
             >Cancel</button>
             <button 
               onClick={() => {
-                removeCookie("account-details")
-                window.location.reload()
+                logout()
+                window.location.replace("/")
               }} 
               className="relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >Proceed</button>

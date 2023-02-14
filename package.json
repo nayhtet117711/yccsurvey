@@ -21,7 +21,8 @@
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "^6.3.0",
-    "react-wordcloud": "^1.2.7"
+    "react-wordcloud": "^1.2.7",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

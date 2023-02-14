@@ -70,7 +70,7 @@ const Survey = ({ jobPositionList }) => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${cookies["account-details"]?.token}`
       },
-      body: JSON.stringify(surveyData)
+      body: JSON.stringify(surveyData),
     })
       .then(res => res.json())
       .then(data => {
@@ -94,7 +94,7 @@ const Survey = ({ jobPositionList }) => {
     )
 
   return (
-    <div className="grow relative flex justify-center mx:2 md:mx-8">
+    <div className="grow relative flex justify-center mx:2 md:mx-8 min-h-[200px]">
       <div className="absolute p-5 left-0 opacity-40 lg:opacity-80">
         <img src={Img5} className="object-contain w-full md:min-w-[25rem]" />
       </div>

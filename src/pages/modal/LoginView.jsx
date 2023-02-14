@@ -34,7 +34,7 @@ export const LoginView = ({  }) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       })
       .then(res => res.json())
       .then(data => {
@@ -44,6 +44,7 @@ export const LoginView = ({  }) => {
           expires: new Date(parseInt(`${data.exp}000`))
         })
         toast.success("Login success!", { duration: 2000 })
+        window.location.href = "/"
       })
       .catch(error => {
         console.log("catch: ", error)

@@ -15,7 +15,8 @@ import { StackLineChartFull } from "../components/StackLineChartFull";
 import { WordCloud } from "../components/WordCloud";
 
 function fetchResultApi(onSuccess, onError) {
-  fetch(`${import.meta.env.VITE_API_URL}/surveys`)
+  fetch(`${import.meta.env.VITE_API_URL}/surveys`, {
+  })
     .then(res => res.json())
     .then(data => {
       if(onSuccess) onSuccess(data)
@@ -142,7 +143,7 @@ function ResultOverview({ resultData }) {
             Alumni working <br/>
             in Companies
             </div>
-            <div className="flex-[4]">
+            <div className="flex-1">
               <StackLineChartFull 
                 series={overview_aluminirating}
                 labels={['Job Satisfaction', 'Degree Relaivity']}

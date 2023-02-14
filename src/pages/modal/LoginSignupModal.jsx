@@ -24,7 +24,7 @@ function LoginModal() {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accountDetails?.token}`
-        }
+        },
       })
       .then(res => res.json())
       .then(data => {
