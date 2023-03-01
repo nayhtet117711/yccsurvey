@@ -1,7 +1,7 @@
 import { useExportSurveyExcelFile, useReadExcelFile } from "../utils"
 
 export const Admin = () => {
-    const { handleUpload } = useReadExcelFile()
+    const { handleUpload, uploadNow, inputEvent, reset} = useReadExcelFile()
     const { exportSurveyExcel } = useExportSurveyExcelFile()
 
     const downloadDemoExcelFile = (e) => {
@@ -20,7 +20,7 @@ export const Admin = () => {
     }
 
     return (
-        <div className="min-h-[200px] grow block:flex-col md:flex divide-y-[1px] md:divide-y-0 gap-3 p-0 md:p-10 items-center">
+        <div className="min-h-[200px] grow block:flex-col md:flex divide-y-[1px] md:divide-y-0 gap-3 p-0 md:p-10 items-start">
             <div className="flex flex-col flex-1 py-5 p-8">
                 <label htmlFor="upload-file" className="text-gray-700 pb-2 flex flex-col">
                     <strong>Upload Student Excel File</strong>
@@ -40,6 +40,12 @@ export const Admin = () => {
                     className="border bg-gray-50 p-1 rounded-lg shadow" 
                     onChange={handleUpload} 
                 />
+                {!!inputEvent && (
+                    <div className="py-3 flex gap-2">
+                        <button onClick={reset} className="flex-1 border px-10 py-2 rounded-lg text-gray-700 shadow bg-gray-50 hover:bg-gray-200 focus:bg-gray-300 focus:ring-2 focus:ring-blue-600">Cancel</button>
+                        <button onClick={uploadNow} className="flex-1 border px-10 py-2 rounded-lg text-white shadow bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:ring-2 focus:ring-blue-500">Upload</button>
+                    </div>
+                )}
             </div>
             <div className="lex flex-col flex-1 py-5 p-8">
                 <label className="text-gray-700 pb-2 flex flex-col">

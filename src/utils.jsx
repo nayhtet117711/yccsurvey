@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMemo } from "react";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
@@ -40,12 +41,21 @@ export const useAccountDetial = () => {
 }
 
 export const useReadExcelFile = () => {
+  const [inputEvent, setInputEvent] = useState(null)
+
   const handleUpload = (e) => {
+    setInputEvent(e)
+  }
+
+  const uploadNow = () => {
+    const e = inputEvent
+    if(!e) return null
     e.preventDefault();
 
     const reset = () => {
       setTimeout(() => {
         e.target.value = ""
+        setInputEvent(null)
       }, 5000);
     }
 
@@ -126,7 +136,18 @@ export const useReadExcelFile = () => {
     reader.readAsBinaryString(f)
   }
 
-  return { handleUpload }
+  const reset = () => {
+    const e = inputEvent
+    if(!e) return
+    const confirm = window.confirm("Remove the selected file?")
+    if(!confirm) return
+    setTimeout(() => {
+      e.target.value = ""
+      setInputEvent(null)
+    }, 500);
+  }
+
+  return { handleUpload, uploadNow, inputEvent, reset }
 
 }
 
